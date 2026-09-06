@@ -1,0 +1,46 @@
+[
+  {
+    "_id": "6a87debcd025ce9d0bdd1f2a",
+    "id": "USR001",
+    "name": "Meera Patel",
+    "email": "seller@demo.com",
+    "phone": "+91 98765 43210",
+    "role": "seller",
+    "language": "en",
+    "location": "Ahmedabad, Gujarat",
+    "createdAt": "2025-08-15"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f2b",
+    "id": "USR002",
+    "name": "Rajesh Kumar",
+    "email": "operator@demo.com",
+    "phone": "+91 98765 43211",
+    "role": "operator",
+    "language": "en",
+    "location": "Ahmedabad, Gujarat",
+    "createdAt": "2025-06-10"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f2c",
+    "id": "USR003",
+    "name": "Priya Sharma",
+    "email": "admin@demo.com",
+    "phone": "+91 98765 43212",
+    "role": "admin",
+    "language": "en",
+    "location": "New Delhi",
+    "createdAt": "2025-01-01"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f2d",
+    "id": "USR004",
+    "name": "Hans Mueller",
+    "email": "buyer@demo.com",
+    "phone": "+49 176 12345678",
+    "role": "buyer",
+    "language": "en",
+    "location": "Munich, Germany",
+    "createdAt": "2025-09-20"
+  }
+]

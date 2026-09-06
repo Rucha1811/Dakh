@@ -1,0 +1,124 @@
+[
+  {
+    "_id": "6a87debbd025ce9d0bdd1e83",
+    "question": "How do I start exporting?",
+    "answer": "To start exporting, you need to: 1) Complete your seller profile, 2) Add your product with details, 3) Check your export readiness score, 4) Prepare required documents, 5) Connect with your nearest DNK for assistance.",
+    "nextSteps": [
+      "Complete seller profile",
+      "Add your first product",
+      "Check export readiness"
+    ],
+    "requiredDocuments": [
+      "Aadhaar Card",
+      "PAN Card",
+      "Business Registration"
+    ],
+    "actionButton": "Start Export Journey",
+    "actionLink": "/seller/readiness"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e84",
+    "question": "What should I prepare before visiting DNK?",
+    "answer": "Before visiting DNK, prepare: Product samples, Product photos, Business documents (GST, PAN), Packing materials, Any destination-specific documents. Make sure your export readiness score is above 75%.",
+    "nextSteps": [
+      "Upload documents online first",
+      "Check export readiness",
+      "Find nearest DNK"
+    ],
+    "requiredDocuments": [
+      "GST Certificate",
+      "Product photos",
+      "Packing details"
+    ],
+    "actionButton": "Find Nearest DNK",
+    "actionLink": "/seller/dnk"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e85",
+    "question": "What documents are needed?",
+    "answer": "Common export documents include: Commercial Invoice, Packing List, Certificate of Origin, Shipping Bill, Bill of Lading/Airway Bill, and destination-specific certifications. The exact requirements depend on your product category and destination.",
+    "nextSteps": [
+      "Check destination requirements",
+      "Upload documents to Document Center"
+    ],
+    "requiredDocuments": [
+      "Commercial Invoice",
+      "Packing List",
+      "Certificate of Origin"
+    ],
+    "actionButton": "Go to Documents",
+    "actionLink": "/seller/documents"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e86",
+    "question": "How can I estimate shipping cost?",
+    "answer": "Use our Export Cost Calculator to get an estimate. Enter your product value, weight, dimensions, and destination country. The calculator will show estimated shipping, packaging, and additional charges.",
+    "nextSteps": [
+      "Enter product details",
+      "Select destination",
+      "Calculate estimate"
+    ],
+    "requiredDocuments": [],
+    "actionButton": "Open Cost Calculator",
+    "actionLink": "/seller/cost-calculator"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e87",
+    "question": "Where is my nearest DNK?",
+    "answer": "You can find the nearest Dak Ghar Niryat Kendra using our DNK Locator. Simply enter your PIN code, city, or state to see nearby DNKs with their services and operating hours.",
+    "nextSteps": [
+      "Search by PIN code or city",
+      "Check DNK services",
+      "Plan your visit"
+    ],
+    "requiredDocuments": [],
+    "actionButton": "Find DNK",
+    "actionLink": "/seller/dnk"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e88",
+    "question": "What should I do if my shipment is delayed?",
+    "answer": "If your shipment is delayed: 1) Check the tracking page for latest updates, 2) Contact your DNK operator for assistance, 3) Raise a support ticket if delay exceeds 7 days, 4) Check if there are any customs issues.",
+    "nextSteps": [
+      "Check tracking status",
+      "Contact DNK support",
+      "Raise support ticket"
+    ],
+    "requiredDocuments": [
+      "Tracking number",
+      "Order details"
+    ],
+    "actionButton": "Track Shipment",
+    "actionLink": "/seller/shipments"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e89",
+    "question": "I want to export a handicraft to Germany.",
+    "answer": "Great choice! For handicrafts to Germany, you'll need: 1) Product details with origin, 2) Commercial invoice, 3) Certificate of origin, 4) Wood treatment certificate (if applicable), 5) Packaging details. Estimated delivery is 7-12 business days.",
+    "nextSteps": [
+      "Add product details",
+      "Select Germany as destination",
+      "Check export requirements",
+      "Prepare documents"
+    ],
+    "requiredDocuments": [
+      "Commercial Invoice",
+      "Certificate of Origin",
+      "Product Description"
+    ],
+    "actionButton": "Check Export Readiness",
+    "actionLink": "/seller/readiness"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e8a",
+    "question": "What is DNK?",
+    "answer": "DNK stands for Dak Ghar Niryat Kendra — Export centers set up at Post Offices across India. They help small exporters with documentation, packaging, compliance verification, and shipment booking. Think of them as your local export support center.",
+    "nextSteps": [
+      "Find your nearest DNK",
+      "Understand DNK services"
+    ],
+    "requiredDocuments": [],
+    "actionButton": "Explore DNKs",
+    "actionLink": "/seller/dnk"
+  }
+]

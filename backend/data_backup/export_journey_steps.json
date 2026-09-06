@@ -1,0 +1,65 @@
+[
+  {
+    "_id": "6a87debcd025ce9d0bdd1ec9",
+    "step": 1,
+    "title": "Seller Registration",
+    "description": "Create your seller profile and complete basic information",
+    "responsible": "Seller / DNK Operator"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1eca",
+    "step": 2,
+    "title": "Product Information",
+    "description": "Add product details, images, and physical specifications",
+    "responsible": "Seller"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ecb",
+    "step": 3,
+    "title": "Export Readiness",
+    "description": "Check and improve your export readiness score",
+    "responsible": "Platform"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ecc",
+    "step": 4,
+    "title": "Documentation",
+    "description": "Prepare and upload required export documents",
+    "responsible": "Seller / DNK Operator"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ecd",
+    "step": 5,
+    "title": "DNK Verification",
+    "description": "Get your documents and products verified at nearest DNK",
+    "responsible": "DNK Operator"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ece",
+    "step": 6,
+    "title": "Shipment Booking",
+    "description": "Book your shipment through India Post",
+    "responsible": "DNK Operator"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ecf",
+    "step": 7,
+    "title": "Customs Processing",
+    "description": "Export customs clearance at origin",
+    "responsible": "Customs / India Post"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed0",
+    "step": 8,
+    "title": "International Transit",
+    "description": "Package in transit to destination country",
+    "responsible": "India Post / International Partners"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed1",
+    "step": 9,
+    "title": "Delivery",
+    "description": "Package delivered to international customer",
+    "responsible": "Local Postal Service"
+  }
+]

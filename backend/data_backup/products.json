@@ -1,0 +1,610 @@
+[
+  {
+    "_id": "6a87debcd025ce9d0bdd1efa",
+    "id": "PRD001",
+    "sellerId": "SEL001",
+    "name": "Handcrafted Gujarati Wooden Decorative Box",
+    "description": "A beautifully hand-carved wooden decorative box featuring traditional Gujarati motifs. Made from sustainable teak wood with intricate inlay work. Perfect for home decor or gifting.",
+    "category": "Handicrafts",
+    "price": 2000,
+    "currency": "INR",
+    "weight": 0.8,
+    "dimensions": {
+      "length": 20,
+      "width": 15,
+      "height": 10
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 45,
+    "exportStatus": "READY",
+    "destinationCountry": "Germany",
+    "hsCode": "442090",
+    "material": "Teak Wood",
+    "intendedUse": "Home Decor",
+    "createdAt": "2025-09-01"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1efb",
+    "id": "PRD002",
+    "sellerId": "SEL001",
+    "name": "Kutch Embroidery Sling Bag",
+    "description": "Hand-embroidered cotton sling bag featuring traditional Kutch mirror work and colorful thread patterns. Each bag is unique.",
+    "category": "Textiles",
+    "price": 1500,
+    "currency": "INR",
+    "weight": 0.3,
+    "dimensions": {
+      "length": 25,
+      "width": 20,
+      "height": 5
+    },
+    "packagingType": "Bubble Wrap Only",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 120,
+    "exportStatus": "IN_PROGRESS",
+    "material": "Cotton",
+    "intendedUse": "Fashion Accessory",
+    "createdAt": "2025-09-15"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1efc",
+    "id": "PRD003",
+    "sellerId": "SEL001",
+    "name": "Brass Ganesh Idol — Miniature",
+    "description": "Handcrafted miniature brass Ganesh idol, perfect for car dashboard, office desk, or home temple.",
+    "category": "Handicrafts",
+    "price": 800,
+    "currency": "INR",
+    "weight": 0.4,
+    "dimensions": {
+      "length": 8,
+      "width": 6,
+      "height": 10
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1567591414240-e22137cf91c0?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 200,
+    "exportStatus": "NOT_STARTED",
+    "material": "Brass",
+    "intendedUse": "Religious/Decorative",
+    "createdAt": "2025-10-01"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1efd",
+    "id": "PRD004",
+    "sellerId": "SEL002",
+    "name": "Kutch Ajrakh Block Print Stole",
+    "description": "Traditional Ajrakh hand-block printed cotton stole using natural dyes. Eco-friendly and sustainable.",
+    "category": "Textiles",
+    "price": 1200,
+    "currency": "INR",
+    "weight": 0.2,
+    "dimensions": {
+      "length": 180,
+      "width": 70,
+      "height": 0.5
+    },
+    "packagingType": "Bubble Wrap Only",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 80,
+    "exportStatus": "READY",
+    "destinationCountry": "UK",
+    "material": "Cotton",
+    "intendedUse": "Fashion",
+    "createdAt": "2025-08-20"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1efe",
+    "id": "PRD005",
+    "sellerId": "SEL003",
+    "name": "Banarasi Silk Scarf",
+    "description": "Pure Banarasi silk scarf with gold zari border. Handwoven by master artisans in Surat.",
+    "category": "Textiles",
+    "price": 3500,
+    "currency": "INR",
+    "weight": 0.15,
+    "dimensions": {
+      "length": 200,
+      "width": 80,
+      "height": 0.3
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 30,
+    "exportStatus": "READY",
+    "destinationCountry": "USA",
+    "material": "Silk",
+    "intendedUse": "Fashion",
+    "createdAt": "2025-09-10"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1eff",
+    "id": "PRD006",
+    "sellerId": "SEL004",
+    "name": "Blue Pottery Flower Vase",
+    "description": "Traditional Jaipur blue pottery flower vase with hand-painted floral design. Lead-free and food safe.",
+    "category": "Home Decor",
+    "price": 2800,
+    "currency": "INR",
+    "weight": 1.2,
+    "dimensions": {
+      "length": 12,
+      "width": 12,
+      "height": 25
+    },
+    "packagingType": "Wooden Crate",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 15,
+    "exportStatus": "IN_PROGRESS",
+    "destinationCountry": "France",
+    "material": "Quartz Stone Powder",
+    "intendedUse": "Home Decor",
+    "createdAt": "2025-08-25"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f00",
+    "id": "PRD007",
+    "sellerId": "SEL005",
+    "name": "Bengal Terracotta Horse",
+    "description": "Traditional Bankura terracotta horse, an iconic folk art piece from Bengal. Handmade and kiln-fired.",
+    "category": "Handicrafts",
+    "price": 1800,
+    "currency": "INR",
+    "weight": 1.5,
+    "dimensions": {
+      "length": 15,
+      "width": 10,
+      "height": 22
+    },
+    "packagingType": "Wooden Crate",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 25,
+    "exportStatus": "NOT_STARTED",
+    "material": "Terracotta Clay",
+    "intendedUse": "Art/Collectible",
+    "createdAt": "2025-10-05"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f01",
+    "id": "PRD008",
+    "sellerId": "SEL006",
+    "name": "Malabar Black Pepper — 500g",
+    "description": "Premium single-origin Malabar black pepper from Kerala spice gardens. Sun-dried and hand-sorted.",
+    "category": "Food Products",
+    "price": 600,
+    "currency": "INR",
+    "weight": 0.55,
+    "dimensions": {
+      "length": 15,
+      "width": 10,
+      "height": 8
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 500,
+    "exportStatus": "READY",
+    "destinationCountry": "UAE",
+    "material": "Natural Spice",
+    "intendedUse": "Cooking",
+    "createdAt": "2025-09-20"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f02",
+    "id": "PRD009",
+    "sellerId": "SEL007",
+    "name": "Varanasi Banarasi Dupatta",
+    "description": "Pure silk Banarasi dupatta with intricate meenakari work. A timeless piece of Indian textile heritage.",
+    "category": "Textiles",
+    "price": 5000,
+    "currency": "INR",
+    "weight": 0.25,
+    "dimensions": {
+      "length": 250,
+      "width": 100,
+      "height": 0.3
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 12,
+    "exportStatus": "IN_PROGRESS",
+    "destinationCountry": "USA",
+    "material": "Silk",
+    "intendedUse": "Fashion",
+    "createdAt": "2025-08-10"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f03",
+    "id": "PRD010",
+    "sellerId": "SEL008",
+    "name": "Chennai Brass Lamp — Traditional",
+    "description": "Traditional South Indian brass kuthu vilakku (standing lamp). Used in pooja and home decor.",
+    "category": "Handicrafts",
+    "price": 2200,
+    "currency": "INR",
+    "weight": 1.8,
+    "dimensions": {
+      "length": 10,
+      "width": 10,
+      "height": 35
+    },
+    "packagingType": "Wooden Crate",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1567591414240-e22137cf91c0?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 20,
+    "exportStatus": "READY",
+    "destinationCountry": "Singapore",
+    "material": "Brass",
+    "intendedUse": "Religious/Decorative",
+    "createdAt": "2025-09-05"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f04",
+    "id": "PRD011",
+    "sellerId": "SEL010",
+    "name": "Mumbai Hand-stitched Leather Journal",
+    "description": "Genuine leather journal with handmade cotton pages. Perfect for artists and writers.",
+    "category": "Eco-Friendly Products",
+    "price": 1800,
+    "currency": "INR",
+    "weight": 0.45,
+    "dimensions": {
+      "length": 22,
+      "width": 16,
+      "height": 3
+    },
+    "packagingType": "Bubble Wrap Only",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1532012164546-f432f2e37278?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 60,
+    "exportStatus": "READY",
+    "destinationCountry": "Canada",
+    "material": "Leather & Cotton",
+    "intendedUse": "Stationery",
+    "createdAt": "2025-09-25"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f05",
+    "id": "PRD012",
+    "sellerId": "SEL002",
+    "name": "Kutch Lippan Art Wall Mirror",
+    "description": "Traditional Lippan (mud and mirror) art piece from Kutch. Embedded with real mirrors and clay work.",
+    "category": "Home Decor",
+    "price": 3200,
+    "currency": "INR",
+    "weight": 2,
+    "dimensions": {
+      "length": 40,
+      "width": 40,
+      "height": 3
+    },
+    "packagingType": "Wooden Crate",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 8,
+    "exportStatus": "NOT_STARTED",
+    "material": "Clay & Mirror",
+    "intendedUse": "Home Decor",
+    "createdAt": "2025-10-10"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f06",
+    "id": "PRD013",
+    "sellerId": "SEL006",
+    "name": "Kerala Cardamom — 250g",
+    "description": "Premium grade-A cardamom pods from the spice gardens of Idukki, Kerala.",
+    "category": "Food Products",
+    "price": 450,
+    "currency": "INR",
+    "weight": 0.28,
+    "dimensions": {
+      "length": 12,
+      "width": 8,
+      "height": 6
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 300,
+    "exportStatus": "READY",
+    "destinationCountry": "Germany",
+    "material": "Natural Spice",
+    "intendedUse": "Cooking",
+    "createdAt": "2025-10-01"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f07",
+    "id": "PRD014",
+    "sellerId": "SEL004",
+    "name": "Jaipur Lac Bangles Set (12)",
+    "description": "Set of 12 traditional Rajasthani lac bangles with mirror and stone work. Assorted colors.",
+    "category": "Jewellery",
+    "price": 900,
+    "currency": "INR",
+    "weight": 0.35,
+    "dimensions": {
+      "length": 15,
+      "width": 15,
+      "height": 5
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1611591475155-426c623c2807?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 150,
+    "exportStatus": "IN_PROGRESS",
+    "destinationCountry": "UK",
+    "material": "Lac & Glass",
+    "intendedUse": "Fashion",
+    "createdAt": "2025-09-18"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f08",
+    "id": "PRD015",
+    "sellerId": "SEL005",
+    "name": "Dokra Metal Craft Elephant",
+    "description": "Lost-wax casting (Dokra) metal elephant figurine. Ancient tribal craft from Bengal.",
+    "category": "Handicrafts",
+    "price": 2500,
+    "currency": "INR",
+    "weight": 0.9,
+    "dimensions": {
+      "length": 12,
+      "width": 8,
+      "height": 15
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1567591414240-e22137cf91c0?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 18,
+    "exportStatus": "NOT_STARTED",
+    "material": "Brass Alloy",
+    "intendedUse": "Art/Collectible",
+    "createdAt": "2025-10-15"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f09",
+    "id": "PRD016",
+    "sellerId": "SEL003",
+    "name": "Patola Silk Stole",
+    "description": "Double ikat Patola silk stole. One of the most complex weaving techniques in the world.",
+    "category": "Textiles",
+    "price": 8000,
+    "currency": "INR",
+    "weight": 0.2,
+    "dimensions": {
+      "length": 200,
+      "width": 70,
+      "height": 0.3
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 5,
+    "exportStatus": "READY",
+    "destinationCountry": "Japan",
+    "material": "Silk",
+    "intendedUse": "Luxury Fashion",
+    "createdAt": "2025-08-15"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f0a",
+    "id": "PRD017",
+    "sellerId": "SEL008",
+    "name": "Tanjore Painting — Krishna",
+    "description": "Traditional Tanjore (Thanjavur) painting with gold foil and semi-precious stones.",
+    "category": "Art",
+    "price": 12000,
+    "currency": "INR",
+    "weight": 1,
+    "dimensions": {
+      "length": 30,
+      "width": 25,
+      "height": 2
+    },
+    "packagingType": "Wooden Crate",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1578925518470-4def7a0f08bb?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 3,
+    "exportStatus": "NOT_STARTED",
+    "material": "Gold Foil & Stones",
+    "intendedUse": "Art/Collectible",
+    "createdAt": "2025-10-20"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f0b",
+    "id": "PRD018",
+    "sellerId": "SEL010",
+    "name": "Eco Jute Tote Bag",
+    "description": "Handwoven jute tote bag with block print design. 100% biodegradable.",
+    "category": "Eco-Friendly Products",
+    "price": 350,
+    "currency": "INR",
+    "weight": 0.15,
+    "dimensions": {
+      "length": 35,
+      "width": 30,
+      "height": 15
+    },
+    "packagingType": "Bubble Wrap Only",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 200,
+    "exportStatus": "READY",
+    "destinationCountry": "Australia",
+    "material": "Jute",
+    "intendedUse": "Shopping Bag",
+    "createdAt": "2025-10-08"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f0c",
+    "id": "PRD019",
+    "sellerId": "SEL007",
+    "name": "Chikankari Cotton Kurta",
+    "description": "Elegant Lucknowi Chikankari hand-embroidered cotton kurta. Delicate shadow work.",
+    "category": "Textiles",
+    "price": 2200,
+    "currency": "INR",
+    "weight": 0.3,
+    "dimensions": {
+      "length": 70,
+      "width": 50,
+      "height": 2
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 35,
+    "exportStatus": "READY",
+    "destinationCountry": "UAE",
+    "material": "Cotton",
+    "intendedUse": "Fashion",
+    "createdAt": "2025-09-28"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f0d",
+    "id": "PRD020",
+    "sellerId": "SEL009",
+    "name": "Mysore Sandalwood Soap Set (6)",
+    "description": "Set of 6 pure Mysore sandalwood soaps. Ayurvedic, natural fragrance.",
+    "category": "Traditional Products",
+    "price": 750,
+    "currency": "INR",
+    "weight": 0.5,
+    "dimensions": {
+      "length": 15,
+      "width": 10,
+      "height": 5
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1607006314144-4828b8cf4505?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 100,
+    "exportStatus": "NOT_STARTED",
+    "material": "Sandalwood Oil",
+    "intendedUse": "Personal Care",
+    "createdAt": "2025-10-12"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f0e",
+    "id": "PRD021",
+    "sellerId": "SEL006",
+    "name": "Kerala Banana Chips — 300g",
+    "description": "Traditional Kerala banana chips fried in coconut oil. Crispy and golden.",
+    "category": "Food Products",
+    "price": 200,
+    "currency": "INR",
+    "weight": 0.35,
+    "dimensions": {
+      "length": 20,
+      "width": 15,
+      "height": 5
+    },
+    "packagingType": "Cardboard Box",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 400,
+    "exportStatus": "NOT_STARTED",
+    "material": "Banana & Coconut Oil",
+    "intendedUse": "Snack",
+    "createdAt": "2025-10-18"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f0f",
+    "id": "PRD022",
+    "sellerId": "SEL001",
+    "name": "Gujarati Bandhani Dupatta",
+    "description": "Traditional tie-dye Bandhani dupatta from Gujarat. Vibrant red and gold pattern.",
+    "category": "Textiles",
+    "price": 1800,
+    "currency": "INR",
+    "weight": 0.18,
+    "dimensions": {
+      "length": 220,
+      "width": 80,
+      "height": 0.3
+    },
+    "packagingType": "Bubble Wrap Only",
+    "countryOfOrigin": "India",
+    "images": [
+      "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "stock": 40,
+    "exportStatus": "IN_PROGRESS",
+    "material": "Silk Blend",
+    "intendedUse": "Fashion",
+    "createdAt": "2025-09-12"
+  }
+]

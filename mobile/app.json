@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Niryat Saathi",
+    "slug": "niryat-saathi-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "splash": {
+      "backgroundColor": "#102A43",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#102A43"
+      },
+      "package": "com.sih.niryatsaathi"
+    }
+  }
+}

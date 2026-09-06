@@ -1,0 +1,64 @@
+[
+  {
+    "_id": "6a87debcd025ce9d0bdd1f24",
+    "id": "TKT001",
+    "userId": "USR001",
+    "orderId": "DNK10234",
+    "category": "Shipment Delay",
+    "description": "My shipment has been in transit for over 7 days. Need status update.",
+    "priority": "High",
+    "status": "In Progress",
+    "createdAt": "2026-01-24T10:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f25",
+    "id": "TKT002",
+    "userId": "USR001",
+    "category": "Document Issue",
+    "description": "Certificate of Origin correction - what specific changes are needed?",
+    "priority": "Medium",
+    "status": "Assigned",
+    "createdAt": "2026-01-22T16:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f26",
+    "id": "TKT003",
+    "userId": "USR005",
+    "category": "Registration Help",
+    "description": "Need help completing seller verification for Kutch Craft Collective.",
+    "priority": "Medium",
+    "status": "Open",
+    "createdAt": "2026-01-20T09:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f27",
+    "id": "TKT004",
+    "userId": "USR006",
+    "orderId": "DNK10235",
+    "category": "Export Compliance",
+    "description": "Confused about FSSAI requirements for food product export to Germany.",
+    "priority": "High",
+    "status": "Resolved",
+    "createdAt": "2026-01-15T11:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f28",
+    "id": "TKT005",
+    "userId": "USR008",
+    "category": "Platform Feedback",
+    "description": "Would be great to have Hindi support in the document upload section.",
+    "priority": "Low",
+    "status": "Open",
+    "createdAt": "2026-01-18T14:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1f29",
+    "id": "TKT006",
+    "userId": "USR012",
+    "category": "Account Issue",
+    "description": "Cannot upload documents larger than 5MB. Need higher limit for certificate scans.",
+    "priority": "Medium",
+    "status": "In Progress",
+    "createdAt": "2026-01-19T08:00:00Z"
+  }
+]

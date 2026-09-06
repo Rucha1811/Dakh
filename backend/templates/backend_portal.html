@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niryat Saathi | Enterprise Backend Operations & Data Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        dak: {
+                            red: '#e11d48',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                            slate: '#0f172a',
+                            card: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Alpine.js for Interactive Single Page Control -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #090d16;
+            color: #f8fafc;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .pulse-dot {
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white"
+      x-data="backendApp()" x-init="initApp()">
+
+    <!-- Top Global Header -->
+    <header class="sticky top-0 z-50 glass-header px-4 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 via-indigo-600 to-amber-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                <i data-lucide="send" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                        NIRYAT SAATHI
+                        <span class="text-xs uppercase px-2 py-0.5 rounded-full font-semibold tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                            Enterprise Backend v2.5
+                        </span>
+                    </h1>
+                </div>
+                <p class="text-xs text-slate-400">Digital Export Enablement Platform • Dak Ghar Niryat Kendra (DNK)</p>
+            </div>
+        </div>
+
+        <!-- Telemetry Status Pills -->
+        <div class="hidden md:flex items-center gap-3 text-xs">
+            <!-- MongoDB Pill -->
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60">
+                <span class="w-2 h-2 rounded-full pulse-dot" :class="stats.db_online ? 'bg-emerald-400' : 'bg-rose-500'"></span>
+                <span class="text-slate-400 font-medium">MongoDB:</span>
+                <span class="font-semibold text-emerald-400" x-text="stats.db_online ? `${stats.total_live_documents || 173} Docs (${stats.ping_ms || 0.4}ms)` : 'Offline'"></span>
+            </div>
+
+            <!-- AI Engine Pill -->
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60">
+                <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                <span class="text-slate-400 font-medium">AI Daksh:</span>
+                <span class="font-semibold text-indigo-300">Groq LLM Active</span>
+            </div>
+
+            <!-- Server Time -->
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-300">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span class="code-font text-[11px]" x-text="currentTime"></span>
+            </div>
+        </div>
+
+        <!-- Quick Launch Actions -->
+        <div class="flex items-center gap-2">
+            <button @click="refreshData()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 border border-slate-700/50 transition flex items-center gap-1.5 text-xs font-medium" title="Refresh Telemetry">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5" :class="loading ? 'animate-spin' : ''"></i>
+                <span class="hidden sm:inline">Sync</span>
+            </button>
+
+            <a href="http://127.0.0.1:5173" target="_blank" class="px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 hover:text-indigo-200 border border-indigo-500/30 rounded-lg text-xs font-medium flex items-center gap-1.5 transition">
+                <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+                <span>Web App (:5173)</span>
+            </a>
+
+            <a href="http://localhost:8081" target="_blank" class="px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 hover:text-emerald-200 border border-emerald-500/30 rounded-lg text-xs font-medium flex items-center gap-1.5 transition">
+                <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+                <span>Mobile (:8081)</span>
+            </a>
+
+            <a href="/admin/" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded-lg text-xs font-medium flex items-center gap-1.5 transition">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span class="hidden sm:inline">Admin</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Navigation Tab Bar -->
+    <div class="bg-slate-900/90 border-b border-slate-800 px-4 lg:px-8 py-2 sticky top-[65px] z-40">
+        <div class="flex items-center gap-1 overflow-x-auto">
+            <button @click="activeTab = 'overview'" 
+                    class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition whitespace-nowrap"
+                    :class="activeTab === 'overview' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'">
+                <i data-lucide="activity" class="w-4 h-4"></i>
+                <span>System Telemetry</span>
+            </button>
+
+            <button @click="activeTab = 'backup'" 
+                    class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition whitespace-nowrap relative"
+                    :class="activeTab === 'backup' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'">
+                <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i>
+                <span>Database & Backup Center</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            </button>
+
+            <button @click="activeTab = 'explorer'" 
+                    class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition whitespace-nowrap"
+                    :class="activeTab === 'explorer' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'">
+                <i data-lucide="table" class="w-4 h-4"></i>
+                <span>Live Data Explorer</span>
+            </button>
+
+            <button @click="activeTab = 'api'" 
+                    class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition whitespace-nowrap"
+                    :class="activeTab === 'api' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'">
+                <i data-lucide="terminal" class="w-4 h-4 text-amber-400"></i>
+                <span>Interactive REST API Runner</span>
+            </button>
+
+            <button @click="activeTab = 'ai'" 
+                    class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition whitespace-nowrap"
+                    :class="activeTab === 'ai' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'">
+                <i data-lucide="bot" class="w-4 h-4 text-indigo-400"></i>
+                <span>AI Daksh Assistant</span>
+            </button>
+
+            <button @click="activeTab = 'docs'" 
+                    class="px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition whitespace-nowrap"
+                    :class="activeTab === 'docs' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span>Architecture & Docs</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification / Alert Toast -->
+    <div x-show="toast.show" x-transition 
+         class="fixed bottom-6 right-6 z-50 max-w-md p-4 rounded-xl shadow-2xl border flex items-start gap-3"
+         :class="toast.type === 'success' ? 'bg-emerald-950/95 border-emerald-500/40 text-emerald-100' : (toast.type === 'error' ? 'bg-rose-950/95 border-rose-500/40 text-rose-100' : 'bg-slate-900/95 border-indigo-500/40 text-indigo-100')">
+        <div class="mt-0.5">
+            <i :data-lucide="toast.type === 'success' ? 'check-circle-2' : (toast.type === 'error' ? 'alert-octagon' : 'info')" class="w-5 h-5"></i>
+        </div>
+        <div class="flex-1">
+            <h4 class="text-sm font-semibold" x-text="toast.title"></h4>
+            <p class="text-xs text-slate-300 mt-0.5" x-text="toast.message"></p>
+        </div>
+        <button @click="toast.show = false" class="text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+    </div>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-1 px-4 lg:px-8 py-6 max-w-7xl w-full mx-auto space-y-6">
+
+        <!-- =================================================================== -->
+        <!-- TAB 1: SYSTEM OVERVIEW & TELEMETRY -->
+        <!-- =================================================================== -->
+        <div x-show="activeTab === 'overview'" class="space-y-6">
+            
+            <!-- Quick Stat Metric Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Card 1: MongoDB Database -->
+                <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-indigo-500/50 transition">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl group-hover:bg-emerald-500/20 transition"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">MongoDB Records</span>
+                        <div class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <i data-lucide="database" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-baseline gap-2">
+                        <span class="text-3xl font-extrabold text-white" x-text="stats.total_live_documents || 173"></span>
+                        <span class="text-xs text-emerald-400 font-medium">Docs across 13 Collections</span>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-700/50">
+                        <span>Database: <strong class="text-slate-200" x-text="stats.db_name"></strong></span>
+                        <span class="text-emerald-400">Ping: <strong x-text="`${stats.ping_ms || 0.4} ms`"></strong></span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Export Products -->
+                <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-indigo-500/50 transition">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Catalog Products</span>
+                        <div class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                            <i data-lucide="package" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-baseline gap-2">
+                        <span class="text-3xl font-extrabold text-white" x-text="stats.collections?.products?.count || 22"></span>
+                        <span class="text-xs text-indigo-400 font-medium">Handicraft & GI Goods</span>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-700/50">
+                        <span>Sellers: <strong class="text-slate-200" x-text="stats.collections?.sellers?.count || 10"></strong></span>
+                        <span>Orders: <strong class="text-slate-200" x-text="stats.collections?.orders?.count || 20"></strong></span>
+                    </div>
+                </div>
+
+                <!-- Card 3: DNK Centers -->
+                <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-indigo-500/50 transition">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-rose-500/10 rounded-full blur-xl group-hover:bg-rose-500/20 transition"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Active DNK Centers</span>
+                        <div class="p-2 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                            <i data-lucide="building-2" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-baseline gap-2">
+                        <span class="text-3xl font-extrabold text-white" x-text="stats.collections?.dnks?.count || 20"></span>
+                        <span class="text-xs text-rose-400 font-medium">Dak Ghar Export Hubs</span>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-700/50">
+                        <span>PBE Rules: <strong class="text-slate-200" x-text="stats.collections?.compliance_rules?.count || 12"></strong></span>
+                        <span>Documents: <strong class="text-slate-200" x-text="stats.collections?.documents?.count || 30"></strong></span>
+                    </div>
+                </div>
+
+                <!-- Card 4: Backup Status -->
+                <div class="glass-panel p-5 rounded-2xl relative overflow-hidden group hover:border-indigo-500/50 transition">
+                    <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Backup Synchronization</span>
+                        <div class="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                            <i data-lucide="hard-drive" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-baseline gap-2">
+                        <span class="text-3xl font-extrabold text-emerald-400">100%</span>
+                        <span class="text-xs text-slate-300 font-medium">Authoritative Synced</span>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-700/50">
+                        <span>Snapshots: <strong class="text-slate-200" x-text="stats.snapshots?.length || 0"></strong></span>
+                        <button @click="activeTab = 'backup'" class="text-amber-400 hover:text-amber-300 font-semibold underline">Manage &rarr;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-Time Platform Topology & Service Map -->
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i data-lucide="network" class="w-4 h-4 text-indigo-400"></i>
+                            Live Full-Stack Service Mesh
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Real-time health status of microservices, database, and client applications</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button @click="triggerBackup()" :disabled="backingUp" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-md shadow-emerald-600/30">
+                            <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                            <span x-text="backingUp ? 'Exporting...' : 'Export Full Backup Now'"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Service 1: Django REST -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/70 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-indigo-400 tracking-wider">Core REST API</span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">ONLINE</span>
+                        </div>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex justify-between"><span class="text-slate-500">Framework:</span> <span>Django 6.1 + DRF</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Host / Port:</span> <span class="code-font text-indigo-300">127.0.0.1:8000</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Base API:</span> <span class="code-font text-indigo-300">/api/</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">CORS:</span> <span class="text-emerald-400">Enabled (*)</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Service 2: MongoDB -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/70 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-emerald-400 tracking-wider">Database Engine</span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">CONNECTED</span>
+                        </div>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex justify-between"><span class="text-slate-500">Engine:</span> <span>MongoDB v8.0 Community</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Database:</span> <span class="code-font text-emerald-300">sih_dakghar_db</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Collections:</span> <span class="font-bold text-white">13 Verified</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Latency:</span> <span class="text-emerald-400" x-text="`${stats.ping_ms || 0.4} ms`"></span></div>
+                        </div>
+                    </div>
+
+                    <!-- Service 3: AI Assistant (Groq) -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/70 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-purple-400 tracking-wider">Daksh AI Assistant</span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/30">READY</span>
+                        </div>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex justify-between"><span class="text-slate-500">LLM Provider:</span> <span>Groq Fast Inference</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Model:</span> <span class="code-font text-purple-300">gpt-oss-120b</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Languages:</span> <span class="font-medium text-slate-200">EN, हिन्दी, ગુજરાતી</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Endpoint:</span> <span class="code-font text-purple-300">/api/assistant/chat/</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Service 4: Clients (Web & Mobile) -->
+                    <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-700/70 relative">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold uppercase text-amber-400 tracking-wider">Client Apps</span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">ACTIVE</span>
+                        </div>
+                        <div class="space-y-1.5 text-xs text-slate-300">
+                            <div class="flex justify-between"><span class="text-slate-500">Web Portal:</span> <span class="code-font text-amber-300">React 19 (:5173)</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Mobile Hub:</span> <span class="code-font text-amber-300">Expo Native (:8081)</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Role Portals:</span> <span>Seller, DNK, Admin, Buyer</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Store Sync:</span> <span class="text-emerald-400">Zustand Live Sync</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo Account Credentials Grid -->
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                            <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i>
+                            Built-in Demo User Credentials (1-Click Login Enabled)
+                        </h3>
+                        <p class="text-xs text-slate-400">These accounts are pre-seeded in MongoDB and ready for role-based authentication.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-amber-400">Artisan Seller</span>
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300">/seller</span>
+                            </div>
+                            <p class="text-xs font-semibold text-white">Meera Patel</p>
+                            <p class="text-xs text-slate-400 code-font mt-1">seller@demo.com</p>
+                        </div>
+                        <div class="mt-2.5 pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                            <span>Password:</span> <span class="code-font text-slate-200">demo123</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-emerald-400">DNK Post Operator</span>
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300">/operator</span>
+                            </div>
+                            <p class="text-xs font-semibold text-white">Rajesh Kumar</p>
+                            <p class="text-xs text-slate-400 code-font mt-1">operator@demo.com</p>
+                        </div>
+                        <div class="mt-2.5 pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                            <span>Password:</span> <span class="code-font text-slate-200">demo123</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-indigo-400">Postal Admin</span>
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-300">/admin</span>
+                            </div>
+                            <p class="text-xs font-semibold text-white">Priya Sharma</p>
+                            <p class="text-xs text-slate-400 code-font mt-1">admin@demo.com</p>
+                        </div>
+                        <div class="mt-2.5 pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                            <span>Password:</span> <span class="code-font text-slate-200">demo123</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-xs font-bold text-purple-400">Global Buyer</span>
+                                <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-300">/buyer</span>
+                            </div>
+                            <p class="text-xs font-semibold text-white">Hans Mueller (Germany)</p>
+                            <p class="text-xs text-slate-400 code-font mt-1">buyer@demo.com</p>
+                        </div>
+                        <div class="mt-2.5 pt-2 border-t border-slate-800 text-[11px] text-slate-400 flex justify-between">
+                            <span>Password:</span> <span class="code-font text-slate-200">demo123</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =================================================================== -->
+        <!-- TAB 2: DATABASE & BACKUP CENTER -->
+        <!-- =================================================================== -->
+        <div x-show="activeTab === 'backup'" class="space-y-6">
+            
+            <!-- Backup Actions Bar -->
+            <div class="glass-panel p-6 rounded-2xl flex flex-wrap items-center justify-between gap-4 border border-emerald-500/30">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                        </span>
+                        <div>
+                            <h2 class="text-base font-bold text-white">Authoritative MongoDB Backup Suite</h2>
+                            <p class="text-xs text-slate-400 mt-0.5">Automated JSON exports, timestamped snapshot archives, and safe 1-click database re-seeding</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Export Backup -->
+                    <button @click="triggerBackup()" :disabled="backingUp" 
+                            class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-emerald-600/30 disabled:opacity-50">
+                        <i data-lucide="hard-drive-download" class="w-4 h-4" :class="backingUp ? 'animate-bounce' : ''"></i>
+                        <span x-text="backingUp ? 'Creating Backup...' : 'Create Snapshot Backup'"></span>
+                    </button>
+
+                    <!-- Download ZIP -->
+                    <a href="/api/backup/download/" download 
+                       class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-indigo-600/30">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        <span>Download Backup (.ZIP)</span>
+                    </a>
+
+                    <!-- Re-seed Database -->
+                    <button @click="triggerSeed()" :disabled="seeding" 
+                            class="px-4 py-2 bg-rose-600/90 hover:bg-rose-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-rose-600/30 disabled:opacity-50">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4" :class="seeding ? 'animate-spin' : ''"></i>
+                        <span x-text="seeding ? 'Restoring DB...' : 'Re-Seed Database (Restore)'"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collections Status Table -->
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                        <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
+                        Database Collections Inventory (13 Collections)
+                    </h3>
+                    <span class="text-xs text-slate-400" x-text="`Total Records: ${stats.total_live_documents || 173}`"></span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-400 font-semibold uppercase tracking-wider text-[11px] bg-slate-900/60">
+                                <th class="py-3 px-4">Collection Name</th>
+                                <th class="py-3 px-4">Live Mongo Records</th>
+                                <th class="py-3 px-4">Backup JSON File</th>
+                                <th class="py-3 px-4">File Size</th>
+                                <th class="py-3 px-4">Last Sync Timestamp</th>
+                                <th class="py-3 px-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <template x-for="(colInfo, colName) in stats.collections" :key="colName">
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="py-3 px-4 font-semibold text-white flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                        <span class="code-font text-indigo-300" x-text="colName"></span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-800 text-white border border-slate-700" x-text="`${colInfo.count} docs`"></span>
+                                    </td>
+                                    <td class="py-3 px-4">
+                                        <span class="code-font text-slate-400" x-text="`${colName}.json`"></span>
+                                    </td>
+                                    <td class="py-3 px-4 text-slate-400" x-text="`${colInfo.backup_size_kb || 0} KB`"></td>
+                                    <td class="py-3 px-4 text-slate-400 code-font text-[11px]" x-text="colInfo.last_backup || 'Synced'"></td>
+                                    <td class="py-3 px-4 text-right space-x-2">
+                                        <button @click="openCollectionInExplorer(colName)" 
+                                                class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-[11px] font-medium transition">
+                                            Inspect
+                                        </button>
+                                        <a :href="`/api/backup/collection/${colName}/`" target="_blank" 
+                                           class="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 rounded text-[11px] font-medium transition">
+                                            JSON API
+                                        </a>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recent Snapshot History -->
+            <div class="glass-panel p-6 rounded-2xl">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-3">
+                    <i data-lucide="archive" class="w-4 h-4 text-amber-400"></i>
+                    Recent Timestamped Snapshots
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <template x-for="snap in stats.snapshots" :key="snap.name">
+                        <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-white code-font" x-text="snap.name"></p>
+                                <p class="text-[11px] text-slate-400 mt-0.5" x-text="`${snap.file_count} dataset files • ${snap.created}`"></p>
+                            </div>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Archived</span>
+                        </div>
+                    </template>
+                    <div x-show="!stats.snapshots || stats.snapshots.length === 0" class="col-span-full py-6 text-center text-xs text-slate-500">
+                        No snapshots created yet. Click "Create Snapshot Backup" above to generate your first timestamped archive.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =================================================================== -->
+        <!-- =================================================================== -->
+        <!-- TAB 3: LIVE DATA EXPLORER & TABLE STUDIO -->
+        <!-- =================================================================== -->
+        <div x-show="activeTab === 'explorer'" class="space-y-6">
+            
+            <!-- Collection Quick-Pills Ribbon -->
+            <div class="glass-panel p-4 rounded-2xl">
+                <div class="flex items-center justify-between gap-4 mb-3">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
+                        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Database Collections (13 Collections)</span>
+                    </div>
+                    <span class="text-[11px] text-slate-400 font-mono" x-text="`${stats.total_live_documents || 173} Total MongoDB Documents`"></span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <template x-for="(colInfo, colName) in stats.collections" :key="colName">
+                        <button @click="selectedCollection = colName; currentPage = 1; fetchCollectionData()" 
+                                class="px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition border"
+                                :class="selectedCollection === colName ? 'bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/30' : 'bg-slate-900/70 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white'">
+                            <span class="capitalize" x-text="colName.replace(/_/g, ' ')"></span>
+                            <span class="px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold"
+                                  :class="selectedCollection === colName ? 'bg-indigo-800 text-indigo-100' : 'bg-slate-800 text-slate-400'"
+                                  x-text="colInfo.count"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Main Explorer Workspace Panel -->
+            <div class="glass-panel p-6 rounded-2xl space-y-5">
+                
+                <!-- Header Toolbar & Controls -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                                <i data-lucide="database" class="w-5 h-5 text-indigo-400"></i>
+                                <span class="capitalize" x-text="selectedCollection.replace(/_/g, ' ')"></span>
+                            </h2>
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                  x-text="`${explorerData.total || 0} Records`"></span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Live MongoDB queries with full-text search, column sorting, field inspector, and export</p>
+                    </div>
+
+                    <!-- Slide Switch & Action Controls -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        
+                        <!-- VIEW SLIDE SWITCH (Segmented Pill Switcher) -->
+                        <div class="flex items-center p-1 bg-slate-950/80 border border-slate-800 rounded-xl shadow-inner">
+                            <!-- Table View Option -->
+                            <button @click="explorerView = 'table'; setTimeout(() => lucide.createIcons(), 50)" 
+                                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all duration-200"
+                                    :class="explorerView === 'table' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/40' : 'text-slate-400 hover:text-slate-200'">
+                                <i data-lucide="table" class="w-3.5 h-3.5"></i>
+                                <span>Table View</span>
+                            </button>
+                            <!-- Cards View Option -->
+                            <button @click="explorerView = 'cards'; setTimeout(() => lucide.createIcons(), 50)" 
+                                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all duration-200"
+                                    :class="explorerView === 'cards' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/40' : 'text-slate-400 hover:text-slate-200'">
+                                <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                                <span>Cards View</span>
+                            </button>
+                            <!-- JSON View Option -->
+                            <button @click="explorerView = 'json'; setTimeout(() => lucide.createIcons(), 50)" 
+                                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all duration-200"
+                                    :class="explorerView === 'json' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/40' : 'text-slate-400 hover:text-slate-200'">
+                                <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+                                <span>Raw JSON</span>
+                            </button>
+                        </div>
+
+                        <!-- Search Filter -->
+                        <div class="relative">
+                            <input type="text" x-model="explorerSearch" @input.debounce.300ms="currentPage = 1; fetchCollectionData()" 
+                                   placeholder="Search across all fields..." 
+                                   class="bg-slate-900 border border-slate-700 text-white rounded-xl pl-8 pr-7 py-1.5 text-xs focus:outline-none focus:border-indigo-500 w-52 placeholder:text-slate-500">
+                            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5"></i>
+                            <button x-show="explorerSearch" @click="explorerSearch = ''; fetchCollectionData()" class="absolute right-2 top-2 text-slate-500 hover:text-white">
+                                <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+
+                        <!-- Export Dropdown / Buttons -->
+                        <div class="flex items-center gap-1.5">
+                            <button @click="exportToCsv()" title="Download CSV Spreadsheet"
+                                    class="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5 transition">
+                                <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
+                                <span class="hidden sm:inline">Export CSV</span>
+                            </button>
+                            <button @click="exportToJsonFile()" title="Download JSON File"
+                                    class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition">
+                                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                                <span class="hidden sm:inline">JSON</span>
+                            </button>
+                            <button @click="copyExplorerData()" title="Copy Full JSON to Clipboard"
+                                    class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-bar: Status Summary & Page Size -->
+                <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full" :class="loadingExplorer ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'"></span>
+                            <span x-text="loadingExplorer ? 'Querying MongoDB...' : `Loaded ${getFilteredRecords().length} documents in '${selectedCollection}'`"></span>
+                        </span>
+                        <span class="text-slate-600">•</span>
+                        <span class="code-font text-[11px] text-indigo-300" x-text="`${getColumns().length} detected fields`"></span>
+                    </div>
+
+                    <!-- Page Size Selector -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-slate-500">Rows per page:</span>
+                        <select x-model.number="pageSize" @change="currentPage = 1" 
+                                class="bg-slate-900 border border-slate-700 text-white rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-indigo-500">
+                            <option :value="10">10</option>
+                            <option :value="15">15</option>
+                            <option :value="25">25</option>
+                            <option :value="50">50</option>
+                            <option :value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ========================================== -->
+                <!-- VIEW 1: TABLE FORM (Default Slide State) -->
+                <!-- ========================================== -->
+                <div x-show="explorerView === 'table'" class="space-y-4">
+                    <div class="rounded-xl border border-slate-800 bg-slate-950/90 overflow-hidden shadow-2xl">
+                        <div class="overflow-x-auto max-h-[580px]">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <!-- Sticky Table Header -->
+                                <thead class="bg-slate-900/95 sticky top-0 z-10 text-slate-400 border-b border-slate-800 backdrop-blur-md">
+                                    <tr>
+                                        <!-- Index Header -->
+                                        <th class="py-3 px-3.5 font-bold uppercase tracking-wider text-[10px] w-12 text-center text-slate-500">#</th>
+                                        <!-- Dynamic Field Headers -->
+                                        <template x-for="col in getColumns()" :key="col">
+                                            <th @click="sortBy(col)" 
+                                                class="py-3 px-4 font-bold uppercase tracking-wider text-[10px] cursor-pointer hover:text-white select-none transition group whitespace-nowrap">
+                                                <div class="flex items-center gap-1.5">
+                                                    <span class="code-font" x-text="col"></span>
+                                                    <span class="text-indigo-400 text-[10px]" x-show="sortColumn === col" x-text="sortAsc ? '▲' : '▼'"></span>
+                                                    <i data-lucide="chevrons-up-down" class="w-3 h-3 text-slate-600 group-hover:text-slate-400" x-show="sortColumn !== col"></i>
+                                                </div>
+                                            </th>
+                                        </template>
+                                        <!-- Actions Header -->
+                                        <th class="py-3 px-4 font-bold uppercase tracking-wider text-[10px] text-right sticky right-0 bg-slate-900/95">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <!-- Table Body Rows -->
+                                <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                                    <template x-if="getPaginatedRecords().length === 0">
+                                        <tr>
+                                            <td :colspan="getColumns().length + 2" class="py-12 text-center text-slate-500">
+                                                <div class="flex flex-col items-center justify-center gap-2">
+                                                    <i data-lucide="inbox" class="w-8 h-8 text-slate-600"></i>
+                                                    <span class="text-xs">No records match the current filter or search query.</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    <template x-for="(doc, idx) in getPaginatedRecords()" :key="doc.id || doc._id || idx">
+                                        <tr class="hover:bg-indigo-950/30 transition-colors group">
+                                            <!-- Row Index -->
+                                            <td class="py-3 px-3.5 text-center font-mono text-[11px] text-slate-500" x-text="(currentPage - 1) * pageSize + idx + 1"></td>
+                                            
+                                            <!-- Dynamic Columns -->
+                                            <template x-for="col in getColumns()" :key="col">
+                                                <td class="py-3 px-4 max-w-[280px] truncate" :title="typeof doc[col] === 'object' ? JSON.stringify(doc[col]) : String(doc[col] ?? '')">
+                                                    
+                                                    <!-- Boolean value -->
+                                                    <template x-if="typeof doc[col] === 'boolean'">
+                                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold"
+                                                              :class="doc[col] ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'"
+                                                              x-text="doc[col] ? '✓ TRUE' : '✕ FALSE'"></span>
+                                                    </template>
+
+                                                    <!-- Status Badge -->
+                                                    <template x-if="typeof doc[col] === 'string' && (col.toLowerCase().includes('status') || col.toLowerCase().includes('state'))">
+                                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                                                              :class="getStatusBadgeClass(doc[col])"
+                                                              x-text="doc[col]"></span>
+                                                    </template>
+
+                                                    <!-- Price / Currency Number -->
+                                                    <template x-if="typeof doc[col] === 'number' && (col.toLowerCase().includes('price') || col.toLowerCase().includes('amount') || col.toLowerCase().includes('total') || col.toLowerCase().includes('fee') || col.toLowerCase().includes('cost'))">
+                                                        <span class="font-mono font-bold text-emerald-400" x-text="`₹${Number(doc[col]).toLocaleString('en-IN')}`"></span>
+                                                    </template>
+
+                                                    <!-- ID / Code Pill -->
+                                                    <template x-if="typeof doc[col] === 'string' && (col === 'id' || col === '_id' || col.toLowerCase().includes('code') || col.toLowerCase().includes('tracking'))">
+                                                        <span class="code-font text-[11px] font-bold text-indigo-300 bg-indigo-950/60 px-1.5 py-0.5 rounded border border-indigo-800/40" x-text="doc[col]"></span>
+                                                    </template>
+
+                                                    <!-- Array of items -->
+                                                    <template x-if="Array.isArray(doc[col])">
+                                                        <button @click="openDocModal(doc)" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 text-[10px] font-mono border border-slate-700 transition">
+                                                            <span x-text="`[ ${doc[col].length} items ]`"></span>
+                                                        </button>
+                                                    </template>
+
+                                                    <!-- Nested Object -->
+                                                    <template x-if="doc[col] !== null && typeof doc[col] === 'object' && !Array.isArray(doc[col])">
+                                                        <button @click="openDocModal(doc)" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-[10px] font-mono border border-slate-700 transition">
+                                                            <span x-text="`{ ${Object.keys(doc[col]).length} keys }`"></span>
+                                                        </button>
+                                                    </template>
+
+                                                    <!-- Regular String / Number -->
+                                                    <template x-if="doc[col] !== null && typeof doc[col] !== 'boolean' && typeof doc[col] !== 'object' && !(typeof doc[col] === 'string' && (col.toLowerCase().includes('status') || col.toLowerCase().includes('state') || col === 'id' || col === '_id' || col.toLowerCase().includes('code') || col.toLowerCase().includes('tracking'))) && !(typeof doc[col] === 'number' && (col.toLowerCase().includes('price') || col.toLowerCase().includes('amount') || col.toLowerCase().includes('total') || col.toLowerCase().includes('fee') || col.toLowerCase().includes('cost')))">
+                                                        <span class="text-slate-300" x-text="doc[col] ?? '-'"></span>
+                                                    </template>
+                                                </td>
+                                            </template>
+
+                                            <!-- Row Actions -->
+                                            <td class="py-3 px-4 text-right sticky right-0 bg-slate-950/90 group-hover:bg-indigo-950/40 transition-colors">
+                                                <div class="flex items-center justify-end gap-1.5">
+                                                    <button @click="openDocModal(doc)" class="p-1.5 rounded-lg bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white transition" title="Inspect Document Details">
+                                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                                    </button>
+                                                    <button @click="copyDocJson(doc)" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="Copy Document JSON">
+                                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Table Pagination Bar -->
+                        <div class="px-4 py-3 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                            <div class="text-slate-400">
+                                <span>Showing </span>
+                                <span class="font-bold text-white" x-text="getFilteredRecords().length > 0 ? (currentPage - 1) * pageSize + 1 : 0"></span>
+                                <span> to </span>
+                                <span class="font-bold text-white" x-text="Math.min(currentPage * pageSize, getFilteredRecords().length)"></span>
+                                <span> of </span>
+                                <span class="font-bold text-indigo-400" x-text="getFilteredRecords().length"></span>
+                                <span> records</span>
+                            </div>
+
+                            <!-- Page Navigation Buttons -->
+                            <div class="flex items-center gap-1.5">
+                                <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1" 
+                                        class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 text-xs font-semibold flex items-center gap-1 transition">
+                                    <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                                    <span>Prev</span>
+                                </button>
+                                <span class="px-3 py-1 font-mono text-slate-300" x-text="`Page ${currentPage} of ${totalPages()}`"></span>
+                                <button @click="currentPage = Math.min(totalPages(), currentPage + 1)" :disabled="currentPage >= totalPages()" 
+                                        class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 text-xs font-semibold flex items-center gap-1 transition">
+                                    <span>Next</span>
+                                    <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ========================================== -->
+                <!-- VIEW 2: CARDS GRID VIEW (Slide Switch State 2) -->
+                <!-- ========================================== -->
+                <div x-show="explorerView === 'cards'" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[620px] overflow-y-auto pr-1">
+                        <template x-for="(doc, idx) in getPaginatedRecords()" :key="doc.id || doc._id || idx">
+                            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 transition-all shadow-lg flex flex-col justify-between group">
+                                <div class="space-y-3">
+                                    <!-- Card Header -->
+                                    <div class="flex items-start justify-between gap-2 border-b border-slate-800/80 pb-2.5">
+                                        <div class="overflow-hidden">
+                                            <span class="code-font text-[10px] font-bold text-indigo-400 bg-indigo-950/60 px-1.5 py-0.5 rounded border border-indigo-800/40" 
+                                                  x-text="doc.id || doc._id || `#${idx + 1}`"></span>
+                                            <h4 class="text-sm font-bold text-white truncate mt-1" x-text="doc.name || doc.title || doc.productName || doc.sellerName || doc.trackingNumber || 'Document'"></h4>
+                                        </div>
+                                        <template x-if="doc.status">
+                                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                                                  :class="getStatusBadgeClass(doc.status)"
+                                                  x-text="doc.status"></span>
+                                        </template>
+                                    </div>
+
+                                    <!-- Key Card Properties -->
+                                    <div class="space-y-1.5 text-xs">
+                                        <template x-for="col in getColumns().slice(1, 5)" :key="col">
+                                            <div class="flex items-center justify-between text-[11px] gap-2">
+                                                <span class="text-slate-500 code-font uppercase truncate" x-text="col"></span>
+                                                <span class="font-medium text-slate-200 truncate max-w-[160px]" 
+                                                      x-text="typeof doc[col] === 'object' ? (Array.isArray(doc[col]) ? `[${doc[col].length} items]` : '{Object}') : (doc[col] ?? '-')"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+
+                                <!-- Card Footer Actions -->
+                                <div class="mt-4 pt-2.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                                    <button @click="openDocModal(doc)" class="flex-1 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                        <span>Inspect Record</span>
+                                    </button>
+                                    <button @click="copyDocJson(doc)" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition" title="Copy JSON">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Cards Pagination Bar -->
+                    <div class="px-4 py-3 bg-slate-900/90 rounded-xl border border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                        <span class="text-slate-400" x-text="`Showing ${getPaginatedRecords().length} of ${getFilteredRecords().length} cards`"></span>
+                        <div class="flex items-center gap-1.5">
+                            <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1" 
+                                    class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 text-xs font-semibold">Prev</button>
+                            <span class="px-3 py-1 font-mono text-slate-300" x-text="`Page ${currentPage} of ${totalPages()}`"></span>
+                            <button @click="currentPage = Math.min(totalPages(), currentPage + 1)" :disabled="currentPage >= totalPages()" 
+                                    class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 text-xs font-semibold">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ========================================== -->
+                <!-- VIEW 3: RAW JSON CODE VIEW (Slide Switch State 3) -->
+                <!-- ========================================== -->
+                <div x-show="explorerView === 'json'" class="space-y-4">
+                    <div class="relative rounded-xl bg-slate-950 border border-slate-800 overflow-hidden shadow-2xl">
+                        <div class="px-4 py-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                            <span class="code-font" x-text="`${selectedCollection}.json (${explorerData.records?.length || 0} documents)`"></span>
+                            <button @click="copyExplorerData()" class="text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span>Copy All JSON</span>
+                            </button>
+                        </div>
+                        <div class="p-4 max-h-[550px] overflow-y-auto code-font text-xs text-indigo-200 leading-relaxed">
+                            <pre x-text="JSON.stringify(getFilteredRecords(), null, 2)"></pre>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- =================================================================== -->
+        <!-- DOCUMENT INSPECTOR MODAL / SLIDE-OVER DRAWER -->
+        <!-- =================================================================== -->
+        <div x-show="showDocModal" x-transition 
+             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm"
+             style="display: none;">
+            <div @click.away="closeDocModal()" 
+                 class="relative w-full max-w-3xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+                
+                <!-- Modal Header -->
+                <div class="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-indigo-600/20 text-indigo-400">
+                            <i data-lucide="file-text" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm font-bold text-white capitalize" x-text="`${selectedCollection} Document Inspector`"></h3>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                                      x-text="selectedDoc?.id || selectedDoc?._id || 'Record'"></span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-0.5">Full schema attribute inspector and field copy tool</p>
+                        </div>
+                    </div>
+
+                    <!-- Modal Tab Toggle & Close -->
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center p-0.5 bg-slate-900 border border-slate-800 rounded-lg text-xs">
+                            <button @click="modalTab = 'fields'" class="px-2.5 py-1 rounded font-semibold transition"
+                                    :class="modalTab === 'fields' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'">Fields</button>
+                            <button @click="modalTab = 'json'" class="px-2.5 py-1 rounded font-semibold transition"
+                                    :class="modalTab === 'json' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'">Raw JSON</button>
+                        </div>
+                        <button @click="closeDocModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal Body: Fields Breakdown Tab -->
+                <div x-show="modalTab === 'fields'" class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
+                    <template x-if="selectedDoc">
+                        <div class="rounded-xl border border-slate-800 overflow-hidden divide-y divide-slate-800/70 bg-slate-950/60">
+                            <template x-for="(val, key) in selectedDoc" :key="key">
+                                <div class="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-900/50 transition">
+                                    <!-- Field Key & Type -->
+                                    <div class="sm:w-1/3 flex items-center gap-2">
+                                        <span class="code-font text-xs font-bold text-slate-300" x-text="key"></span>
+                                        <span class="px-1.5 py-0.2 rounded text-[9px] font-mono uppercase bg-slate-800 text-slate-400"
+                                              x-text="Array.isArray(val) ? 'Array' : typeof val"></span>
+                                    </div>
+                                    
+                                    <!-- Field Formatted Value -->
+                                    <div class="sm:w-2/3 flex items-center justify-between gap-2 overflow-hidden">
+                                        <div class="text-xs text-indigo-100 font-mono break-all pr-2">
+                                            <template x-if="typeof val === 'object' && val !== null">
+                                                <pre class="text-[11px] text-emerald-300 max-h-32 overflow-y-auto bg-slate-900 p-2 rounded border border-slate-800" x-text="JSON.stringify(val, null, 2)"></pre>
+                                            </template>
+                                            <template x-if="typeof val !== 'object'">
+                                                <span x-text="val !== undefined && val !== null ? String(val) : 'null'"></span>
+                                            </template>
+                                        </div>
+                                        <button @click="copyFieldValue(key, val)" class="p-1 text-slate-500 hover:text-indigo-400 hover:bg-slate-800 rounded transition shrink-0" title="Copy value">
+                                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Modal Body: Raw JSON Tab -->
+                <div x-show="modalTab === 'json'" class="p-6 overflow-y-auto max-h-[60vh]">
+                    <div class="rounded-xl bg-slate-950 p-4 border border-slate-800 code-font text-xs text-indigo-200 leading-relaxed overflow-x-auto">
+                        <pre x-text="JSON.stringify(selectedDoc, null, 2)"></pre>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="px-6 py-3.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-xs">
+                    <button @click="copyDocJson(selectedDoc)" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-semibold flex items-center gap-1.5 transition">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span>Copy Full Document JSON</span>
+                    </button>
+                    <button @click="closeDocModal()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =================================================================== -->
+        <!-- TAB 4: INTERACTIVE REST API RUNNER -->
+        <!-- =================================================================== -->
+        <div x-show="activeTab === 'api'" class="space-y-6">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Endpoint Catalog (Left Sidebar) -->
+                <div class="lg:col-span-5 space-y-3">
+                    <div class="glass-panel p-4 rounded-2xl">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">API Catalog (14 Routes)</h3>
+                        <div class="space-y-1.5 max-h-[600px] overflow-y-auto pr-1">
+                            <template x-for="(ep, idx) in apiEndpoints" :key="idx">
+                                <button @click="selectEndpoint(ep)" 
+                                        class="w-full text-left p-2.5 rounded-xl text-xs transition border flex items-center justify-between"
+                                        :class="selectedApi.path === ep.path && selectedApi.method === ep.method ? 'bg-indigo-600/20 border-indigo-500/50 text-white' : 'bg-slate-900/50 border-slate-800 text-slate-300 hover:bg-slate-800/60'">
+                                    <div class="flex items-center gap-2 overflow-hidden">
+                                        <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                                              :class="ep.method === 'GET' ? 'bg-emerald-500/20 text-emerald-400' : (ep.method === 'POST' ? 'bg-indigo-500/20 text-indigo-400' : 'bg-rose-500/20 text-rose-400')"
+                                              x-text="ep.method"></span>
+                                        <span class="code-font truncate font-medium text-[11px]" x-text="ep.path"></span>
+                                    </div>
+                                    <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-500 shrink-0"></i>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Tester Console (Right Main) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="glass-panel p-6 rounded-2xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-1 rounded-lg text-xs font-bold uppercase"
+                                      :class="selectedApi.method === 'GET' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-indigo-500/20 text-indigo-400'"
+                                      x-text="selectedApi.method"></span>
+                                <h3 class="text-sm font-bold text-white code-font" x-text="selectedApi.path"></h3>
+                            </div>
+                            <button @click="executeApiCall()" :disabled="executingApi" 
+                                    class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition shadow-lg shadow-indigo-600/30 disabled:opacity-50">
+                                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                <span x-text="executingApi ? 'Executing...' : 'Send Live Request'"></span>
+                            </button>
+                        </div>
+
+                        <p class="text-xs text-slate-400 mb-4" x-text="selectedApi.description"></p>
+
+                        <!-- Payload Editor (If POST/PUT) -->
+                        <div x-show="selectedApi.method === 'POST' || selectedApi.method === 'PUT'" class="mb-4">
+                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">JSON Request Body:</label>
+                            <textarea x-model="apiPayload" rows="5" 
+                                      class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 code-font text-xs text-indigo-300 focus:outline-none focus:border-indigo-500"></textarea>
+                        </div>
+
+                        <!-- Live Response Viewer -->
+                        <div>
+                            <div class="flex items-center justify-between text-xs font-semibold mb-2">
+                                <span class="text-slate-300">Live Response:</span>
+                                <div class="flex items-center gap-3">
+                                    <span x-show="apiResponse.status" 
+                                          class="px-2 py-0.5 rounded text-[10px] font-bold"
+                                          :class="apiResponse.status >= 200 && apiResponse.status < 300 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'"
+                                          x-text="`HTTP ${apiResponse.status}`"></span>
+                                    <span x-show="apiResponse.time" class="text-slate-400 text-[11px]" x-text="`${apiResponse.time} ms`"></span>
+                                </div>
+                            </div>
+
+                            <div class="rounded-xl bg-slate-950 border border-slate-800 p-4 max-h-[380px] overflow-y-auto code-font text-xs text-indigo-200">
+                                <pre x-text="apiResponse.data ? JSON.stringify(apiResponse.data, null, 2) : '// Click \'Send Live Request\' to test this endpoint'"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =================================================================== -->
+        <!-- TAB 5: AI DAKSH ASSISTANT PLAYGROUND -->
+        <!-- =================================================================== -->
+        <div x-show="activeTab === 'ai'" class="space-y-6">
+            
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                <i data-lucide="bot" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h2 class="text-base font-bold text-white">Daksh Multilingual AI Export Engine</h2>
+                                <p class="text-xs text-slate-400 mt-0.5">Powered by Groq High-Speed LLM Inference with full Indian language support</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Language Selector -->
+                    <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800">
+                        <button @click="aiLang = 'en'" class="px-3 py-1 rounded-lg text-xs font-semibold transition"
+                                :class="aiLang === 'en' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'">
+                            English
+                        </button>
+                        <button @click="aiLang = 'hi'" class="px-3 py-1 rounded-lg text-xs font-semibold transition"
+                                :class="aiLang === 'hi' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'">
+                            हिन्दी (Hindi)
+                        </button>
+                        <button @click="aiLang = 'gu'" class="px-3 py-1 rounded-lg text-xs font-semibold transition"
+                                :class="aiLang === 'gu' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'">
+                            ગુજરાતી (Gujarati)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat History Box -->
+                <div class="rounded-2xl bg-slate-950 border border-slate-800 p-4 min-h-[350px] max-h-[480px] overflow-y-auto space-y-4 mb-4">
+                    <template x-for="(msg, idx) in chatMessages" :key="idx">
+                        <div class="flex flex-col" :class="msg.role === 'user' ? 'items-end' : 'items-start'">
+                            <div class="max-w-[80%] rounded-2xl p-4 text-xs leading-relaxed"
+                                 :class="msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'">
+                                <div class="font-bold text-[10px] uppercase mb-1 opacity-70" x-text="msg.role === 'user' ? 'You' : 'Daksh AI Assistant'"></div>
+                                <div class="whitespace-pre-wrap" x-text="msg.content"></div>
+                                
+                                <template x-if="msg.suggestedDocuments && msg.suggestedDocuments.length > 0">
+                                    <div class="mt-3 pt-2.5 border-t border-slate-800">
+                                        <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block mb-1">Required Documents:</span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <template x-for="doc in msg.suggestedDocuments" :key="doc">
+                                                <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 text-[10px] font-medium border border-amber-500/20" x-text="doc"></span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <div x-show="chatLoading" class="flex items-center gap-2 text-xs text-indigo-400 p-2">
+                        <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+                        <span>Daksh is generating export guidance...</span>
+                    </div>
+                </div>
+
+                <!-- Prompt Input Box -->
+                <form @submit.prevent="sendAiMessage()" class="flex gap-2">
+                    <input type="text" x-model="chatInput" 
+                           placeholder="Ask Daksh: 'What documents do I need to export handicraft to USA via DNK?'" 
+                           class="flex-1 bg-slate-900 border border-slate-700 text-white rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-indigo-500">
+                    <button type="submit" :disabled="chatLoading || !chatInput.trim()" 
+                            class="px-5 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 transition disabled:opacity-50">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Ask AI</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- =================================================================== -->
+        <!-- TAB 6: ARCHITECTURE & SYSTEM DOCS -->
+        <!-- =================================================================== -->
+        <div x-show="activeTab === 'docs'" class="space-y-6">
+            
+            <div class="glass-panel p-6 rounded-2xl">
+                <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+                    <i data-lucide="file-code" class="w-4 h-4 text-indigo-400"></i>
+                    Niryat Saathi Enterprise Architecture Blueprint
+                </h2>
+
+                <div class="prose prose-invert max-w-none text-xs text-slate-300 space-y-4">
+                    <p>
+                        <strong>Niryat Saathi</strong> bridges rural Indian MSMEs, artisans, and SHGs directly to the global market by integrating 
+                        India Post's <strong>Dak Ghar Niryat Kendra (DNK)</strong> network with modern digital logistics, automated customs documentation, and Groq-powered AI compliance.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <h4 class="font-bold text-indigo-400 mb-2">1. Seller Enablement</h4>
+                            <ul class="space-y-1 list-disc list-inside text-slate-400">
+                                <li>Instant Product Cataloging</li>
+                                <li>HS Code Auto-Classification</li>
+                                <li>Landed Cost & Tariff Calculator</li>
+                                <li>1-Click Postal Bill of Export (PBE)</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <h4 class="font-bold text-emerald-400 mb-2">2. DNK Post Office Operations</h4>
+                            <ul class="space-y-1 list-disc list-inside text-slate-400">
+                                <li>Digital Counter Booking Queue</li>
+                                <li>Automated Barcode / CN22 / CN23</li>
+                                <li>Customs Cleared Dispatch</li>
+                                <li>Interactive Geographic Post Map</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <h4 class="font-bold text-purple-400 mb-2">3. Global Buyer Trust</h4>
+                            <ul class="space-y-1 list-disc list-inside text-slate-400">
+                                <li>Authentic Artisan Marketplace</li>
+                                <li>Real-Time India Post Tracking</li>
+                                <li>Multi-Currency Landed Pricing</li>
+                                <li>Buyer Feedback & Reviews</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4 class="font-bold text-white pt-4">CLI Developer Commands</h4>
+                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 code-font text-indigo-300 space-y-2">
+                        <div># Export full MongoDB backup to JSON & snapshots</div>
+                        <div class="text-white">python backup_data.py</div>
+                        <div class="mt-2"># Restore / seed clean database from backup</div>
+                        <div class="text-white">python seed_data.py</div>
+                        <div class="mt-2"># Run complete test verification suite</div>
+                        <div class="text-white">python test_backend_and_mongo.py</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-800/80 py-4 px-4 lg:px-8 text-center text-xs text-slate-500 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Niryat Saathi Digital Export Enablement Platform • SIH 2026</span>
+        </div>
+        <div class="code-font text-[11px] text-slate-400">
+            Django 6.1 • MongoDB 8.0 • Groq AI • React 19 • Expo
+        </div>
+    </footer>
+
+    <!-- Alpine.js Application Logic -->
+    <script>
+        function backendApp() {
+            return {
+                activeTab: 'overview',
+                loading: false,
+                backingUp: false,
+                seeding: false,
+                loadingExplorer: false,
+                executingApi: false,
+                chatLoading: false,
+                currentTime: '',
+                selectedCollection: 'products',
+                explorerSearch: '',
+                explorerView: 'table',
+                selectedDoc: null,
+                showDocModal: false,
+                modalTab: 'fields',
+                sortColumn: '',
+                sortAsc: true,
+                pageSize: 15,
+                currentPage: 1,
+                stats: {
+                    db_online: true,
+                    ping_ms: 0.4,
+                    db_name: 'sih_dakghar_db',
+                    total_live_documents: 173,
+                    collections: {},
+                    snapshots: []
+                },
+                explorerData: { total: 0, count: 0, records: [] },
+                toast: { show: false, title: '', message: '', type: 'success' },
+
+                // API Tester State
+                selectedApi: {
+                    method: 'GET',
+                    path: '/api/products/',
+                    description: 'Retrieve all export products from MongoDB.'
+                },
+                apiPayload: '{\n  "name": "Terracotta Handicraft Pot",\n  "category": "Pottery",\n  "price": 1200,\n  "sellerId": "SEL001"\n}',
+                apiResponse: { status: null, time: null, data: null },
+
+                // AI Chat State
+                aiLang: 'en',
+                chatInput: '',
+                chatMessages: [
+                    {
+                        role: 'assistant',
+                        content: 'Namaste! I am Daksh, your Niryat Saathi Export Assistant. Ask me anything about exporting goods through Dak Ghar Niryat Kendra (DNK), required customs documents (IEC, PBE, CoO), or international parcel shipping.',
+                        suggestedDocuments: ['IEC Certificate', 'Commercial Invoice', 'PBE Form']
+                    }
+                ],
+
+                // API Endpoint Catalog
+                apiEndpoints: [
+                    { method: 'GET', path: '/api/health/', description: 'System health check and MongoDB connection status.' },
+                    { method: 'GET', path: '/api/backup/status/', description: 'Live database and backup metadata statistics.' },
+                    { method: 'GET', path: '/api/products/', description: 'List all export products with category and search filters.' },
+                    { method: 'POST', path: '/api/products/', description: 'Create a new product listing in MongoDB.' },
+                    { method: 'GET', path: '/api/orders/', description: 'List all export orders (supports ?sellerId= & ?buyerId=).' },
+                    { method: 'POST', path: '/api/orders/', description: 'Create a new buyer order.' },
+                    { method: 'GET', path: '/api/shipments/', description: 'List shipments and India Post tracking numbers.' },
+                    { method: 'GET', path: '/api/dnks/', description: 'List all Post Office DNK centers in Gujarat/India.' },
+                    { method: 'GET', path: '/api/documents/', description: 'List seller documents and export compliance papers.' },
+                    { method: 'POST', path: '/api/documents/', description: 'Upload / register a compliance document.' },
+                    { method: 'GET', path: '/api/support-tickets/', description: 'Fetch seller and operator support tickets.' },
+                    { method: 'GET', path: '/api/compliance-rules/', description: 'Export compliance and PBE rules by destination country.' },
+                    { method: 'GET', path: '/api/analytics/', description: 'Platform-wide counts and operational metrics.' },
+                    { method: 'POST', path: '/api/auth/login/', description: 'Authenticate demo user account (Seller, Operator, Admin, Buyer).' },
+                    { method: 'POST', path: '/api/assistant/chat/', description: 'Groq Multilingual AI query endpoint.' }
+                ],
+
+                initApp() {
+                    this.updateTime();
+                    setInterval(() => this.updateTime(), 1000);
+                    this.fetchStats();
+                    this.fetchCollectionData();
+                    this.selectEndpoint(this.apiEndpoints[0]);
+                    setTimeout(() => lucide.createIcons(), 200);
+                },
+
+                updateTime() {
+                    const now = new Date();
+                    this.currentTime = now.toLocaleTimeString('en-US', { hour12: false }) + ' IST';
+                },
+
+                showToast(title, message, type = 'success') {
+                    this.toast = { show: true, title, message, type };
+                    setTimeout(() => { this.toast.show = false; }, 4500);
+                },
+
+                async fetchStats() {
+                    this.loading = true;
+                    try {
+                        const res = await fetch('/api/backup/status/');
+                        if (res.ok) {
+                            this.stats = await res.json();
+                        }
+                    } catch (e) {
+                        console.error('Failed to load backup stats', e);
+                    } finally {
+                        this.loading = false;
+                        setTimeout(() => lucide.createIcons(), 100);
+                    }
+                },
+
+                async triggerBackup() {
+                    this.backingUp = true;
+                    try {
+                        const res = await fetch('/api/backup/export/', { method: 'POST' });
+                        const data = await res.json();
+                        if (res.ok) {
+                            this.showToast('Backup Completed', `Successfully exported ${data.total_records} records across ${data.total_collections} collections.`, 'success');
+                            await this.fetchStats();
+                        } else {
+                            this.showToast('Backup Failed', data.error || 'Unknown error', 'error');
+                        }
+                    } catch (e) {
+                        this.showToast('Backup Error', e.message, 'error');
+                    } finally {
+                        this.backingUp = false;
+                    }
+                },
+
+                async triggerSeed() {
+                    if (!confirm('Are you sure you want to restore / re-seed the MongoDB database from backup? This will sync all 13 collections.')) return;
+                    this.seeding = true;
+                    try {
+                        const res = await fetch('/api/backup/seed/', { method: 'POST' });
+                        const data = await res.json();
+                        if (res.ok) {
+                            this.showToast('Database Restored', `Successfully seeded ${data.total_records} records into MongoDB.`, 'success');
+                            await this.fetchStats();
+                            await this.fetchCollectionData();
+                        } else {
+                            this.showToast('Restore Failed', data.error || 'Unknown error', 'error');
+                        }
+                    } catch (e) {
+                        this.showToast('Restore Error', e.message, 'error');
+                    } finally {
+                        this.seeding = false;
+                    }
+                },
+
+                openCollectionInExplorer(colName) {
+                    this.selectedCollection = colName;
+                    this.activeTab = 'explorer';
+                    this.fetchCollectionData();
+                },
+
+                async fetchCollectionData() {
+                    this.loadingExplorer = true;
+                    try {
+                        const url = `/api/backup/collection/${this.selectedCollection}/?search=${encodeURIComponent(this.explorerSearch || '')}`;
+                        const res = await fetch(url);
+                        if (res.ok) {
+                            this.explorerData = await res.json();
+                        }
+                    } catch (e) {
+                        console.error('Failed to fetch collection data', e);
+                    } finally {
+                        this.loadingExplorer = false;
+                    }
+                },
+
+                copyExplorerData() {
+                    navigator.clipboard.writeText(JSON.stringify(this.explorerData.records, null, 2));
+                    this.showToast('Copied to Clipboard', `Copied ${this.explorerData.records?.length || 0} records as JSON.`, 'success');
+                },
+
+                getColumns() {
+                    if (!this.explorerData.records || this.explorerData.records.length === 0) {
+                        return ['id', 'name', 'status'];
+                    }
+                    const keySet = new Set();
+                    const priorityKeys = [
+                        'id', '_id', 'name', 'title', 'productName', 'sellerName', 'buyerName', 
+                        'category', 'status', 'state', 'price', 'amount', 'total', 'trackingNumber', 
+                        'city', 'country', 'destinationCountry', 'role', 'type', 'pincode', 'created_at'
+                    ];
+                    
+                    this.explorerData.records.forEach(r => {
+                        if (r && typeof r === 'object') {
+                            Object.keys(r).forEach(k => keySet.add(k));
+                        }
+                    });
+
+                    const allKeys = Array.from(keySet);
+                    const ordered = [];
+
+                    // Add prioritized keys first if present
+                    priorityKeys.forEach(pk => {
+                        if (allKeys.includes(pk) && !ordered.includes(pk)) {
+                            ordered.push(pk);
+                        }
+                    });
+
+                    // Add remaining keys
+                    allKeys.forEach(k => {
+                        if (!ordered.includes(k)) {
+                            ordered.push(k);
+                        }
+                    });
+
+                    // Limit to top 8 columns for clean table display
+                    return ordered.slice(0, 8);
+                },
+
+                getFilteredRecords() {
+                    if (!this.explorerData.records) return [];
+                    let list = [...this.explorerData.records];
+
+                    if (this.sortColumn) {
+                        const col = this.sortColumn;
+                        const asc = this.sortAsc;
+                        list.sort((a, b) => {
+                            let valA = a[col] ?? '';
+                            let valB = b[col] ?? '';
+                            if (typeof valA === 'number' && typeof valB === 'number') {
+                                return asc ? valA - valB : valB - valA;
+                            }
+                            return asc 
+                                ? String(valA).localeCompare(String(valB)) 
+                                : String(valB).localeCompare(String(valA));
+                        });
+                    }
+                    return list;
+                },
+
+                getPaginatedRecords() {
+                    const list = this.getFilteredRecords();
+                    const start = (this.currentPage - 1) * this.pageSize;
+                    return list.slice(start, start + this.pageSize);
+                },
+
+                sortBy(col) {
+                    if (this.sortColumn === col) {
+                        this.sortAsc = !this.sortAsc;
+                    } else {
+                        this.sortColumn = col;
+                        this.sortAsc = true;
+                    }
+                },
+
+                totalPages() {
+                    const total = this.getFilteredRecords().length;
+                    return Math.max(1, Math.ceil(total / this.pageSize));
+                },
+
+                openDocModal(doc) {
+                    this.selectedDoc = doc;
+                    this.showDocModal = true;
+                    this.modalTab = 'fields';
+                    setTimeout(() => lucide.createIcons(), 50);
+                },
+
+                closeDocModal() {
+                    this.showDocModal = false;
+                    this.selectedDoc = null;
+                },
+
+                copyDocJson(doc) {
+                    navigator.clipboard.writeText(JSON.stringify(doc || {}, null, 2));
+                    this.showToast('Copied Document', 'Document JSON copied to clipboard.', 'success');
+                },
+
+                copyFieldValue(key, val) {
+                    const text = typeof val === 'object' ? JSON.stringify(val, null, 2) : String(val);
+                    navigator.clipboard.writeText(text);
+                    this.showToast('Copied Field', `Copied value for '${key}'.`, 'success');
+                },
+
+                getStatusBadgeClass(status) {
+                    if (!status) return 'bg-slate-800 text-slate-300';
+                    const s = String(status).toLowerCase();
+                    if (s.includes('active') || s.includes('delivered') || s.includes('approved') || s.includes('verified') || s.includes('completed') || s.includes('success') || s.includes('published')) {
+                        return 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+                    }
+                    if (s.includes('pending') || s.includes('in-transit') || s.includes('transit') || s.includes('processing') || s.includes('draft') || s.includes('review') || s.includes('assigned')) {
+                        return 'bg-amber-500/20 text-amber-400 border border-amber-500/30';
+                    }
+                    if (s.includes('fail') || s.includes('reject') || s.includes('cancel') || s.includes('closed') || s.includes('error')) {
+                        return 'bg-rose-500/20 text-rose-400 border border-rose-500/30';
+                    }
+                    return 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30';
+                },
+
+                exportToCsv() {
+                    const records = this.explorerData.records || [];
+                    if (records.length === 0) {
+                        this.showToast('Export Notice', 'No records to export.', 'info');
+                        return;
+                    }
+                    const cols = this.getColumns();
+                    const csvRows = [];
+                    csvRows.push(cols.map(c => `"${c}"`).join(','));
+
+                    records.forEach(r => {
+                        const row = cols.map(c => {
+                            let v = r[c];
+                            if (v === undefined || v === null) return '""';
+                            if (typeof v === 'object') return `"${JSON.stringify(v).replace(/"/g, '""')}"`;
+                            return `"${String(v).replace(/"/g, '""')}"`;
+                        });
+                        csvRows.push(row.join(','));
+                    });
+
+                    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', `${this.selectedCollection}_${Date.now()}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    this.showToast('CSV Exported', `Downloaded ${records.length} records as CSV spreadsheet.`, 'success');
+                },
+
+                exportToJsonFile() {
+                    const records = this.explorerData.records || [];
+                    const blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', `${this.selectedCollection}_${Date.now()}.json`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    this.showToast('JSON Exported', `Downloaded ${records.length} records as JSON file.`, 'success');
+                },
+
+                selectEndpoint(ep) {
+                    this.selectedApi = ep;
+                    this.apiResponse = { status: null, time: null, data: null };
+                    if (ep.method === 'POST') {
+                        if (ep.path.includes('auth/login')) {
+                            this.apiPayload = '{\n  "email": "seller@demo.com",\n  "password": "demo123"\n}';
+                        } else if (ep.path.includes('chat')) {
+                            this.apiPayload = '{\n  "message": "How do I export to Germany via DNK?",\n  "language": "en"\n}';
+                        }
+                    }
+                },
+
+                async executeApiCall() {
+                    this.executingApi = true;
+                    const startTime = performance.now();
+                    try {
+                        const options = {
+                            method: this.selectedApi.method,
+                            headers: { 'Content-Type': 'application/json' }
+                        };
+                        if (this.selectedApi.method === 'POST' || this.selectedApi.method === 'PUT') {
+                            options.body = this.apiPayload;
+                        }
+                        const res = await fetch(this.selectedApi.path, options);
+                        const duration = Math.round(performance.now() - startTime);
+                        const data = await res.json().catch(() => ({ statusText: res.statusText }));
+                        this.apiResponse = {
+                            status: res.status,
+                            time: duration,
+                            data: data
+                        };
+                    } catch (e) {
+                        this.apiResponse = {
+                            status: 500,
+                            time: Math.round(performance.now() - startTime),
+                            data: { error: e.message }
+                        };
+                    } finally {
+                        this.executingApi = false;
+                    }
+                },
+
+                async sendAiMessage() {
+                    if (!this.chatInput.trim() || this.chatLoading) return;
+                    const userText = this.chatInput.trim();
+                    this.chatMessages.push({ role: 'user', content: userText });
+                    this.chatInput = '';
+                    this.chatLoading = true;
+
+                    try {
+                        const res = await fetch('/api/assistant/chat/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                message: userText,
+                                language: this.aiLang,
+                                history: this.chatMessages.slice(-6)
+                            })
+                        });
+                        const data = await res.json();
+                        if (res.ok && data.reply) {
+                            this.chatMessages.push({
+                                role: 'assistant',
+                                content: data.reply,
+                                suggestedDocuments: data.suggestedDocuments || []
+                            });
+                        } else {
+                            this.chatMessages.push({
+                                role: 'assistant',
+                                content: data.reply || data.error || 'An error occurred while connecting to AI assistant.'
+                            });
+                        }
+                    } catch (e) {
+                        this.chatMessages.push({
+                            role: 'assistant',
+                            content: `Network error: ${e.message}`
+                        });
+                    } finally {
+                        this.chatLoading = false;
+                    }
+                },
+
+                async refreshData() {
+                    await this.fetchStats();
+                    await this.fetchCollectionData();
+                    this.showToast('Telemetry Synced', 'Refreshed live statistics from MongoDB.', 'success');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

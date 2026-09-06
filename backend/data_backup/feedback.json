@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "6a85ebe360ac8ef5d0c31863",
+    "userName": "Ramesh Artisan",
+    "userEmail": "ramesh@example.com",
+    "rating": 5,
+    "category": "Platform Experience",
+    "message": "Niryat Saathi made our brass handicrafts export to Germany seamless!",
+    "id": "FDB8CACA9",
+    "createdAt": "2026-08-19T17:46:11.013382"
+  },
+  {
+    "_id": "6a86640a2554e7938725cb03",
+    "name": "Tester",
+    "topic": "general",
+    "rating": 5,
+    "message": "Awesome",
+    "id": "FDBF063A3",
+    "createdAt": "2026-08-20T02:18:50.791048"
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed2",
+    "id": "NTF001",
+    "userId": "USR001",
+    "title": "Document Required",
+    "message": "Upload commercial invoice for Order #DNK10234",
+    "type": "warning",
+    "read": false,
+    "createdAt": "2026-01-25T10:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed3",
+    "id": "NTF002",
+    "userId": "USR001",
+    "title": "Shipment Update",
+    "message": "Your shipment DNK-DE-2026-00124 is now in international transit",
+    "type": "info",
+    "read": false,
+    "createdAt": "2026-01-25T12:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed4",
+    "id": "NTF003",
+    "userId": "USR001",
+    "title": "Export Readiness Improved",
+    "message": "Your export readiness score increased from 82% to 92%",
+    "type": "success",
+    "read": true,
+    "createdAt": "2026-01-20T09:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed5",
+    "id": "NTF004",
+    "userId": "USR001",
+    "title": "DNK Verification Complete",
+    "message": "Your documents for Order #DNK10234 have been verified",
+    "type": "success",
+    "read": true,
+    "createdAt": "2026-01-18T14:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed6",
+    "id": "NTF005",
+    "userId": "USR001",
+    "title": "Order Received",
+    "message": "New order #DNK10246 received from buyer",
+    "type": "info",
+    "read": false,
+    "createdAt": "2026-01-28T11:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed7",
+    "id": "NTF006",
+    "userId": "USR001",
+    "title": "Payment Confirmed",
+    "message": "Payment of ₹4,000 confirmed for Order #DNK10234",
+    "type": "success",
+    "read": true,
+    "createdAt": "2026-01-16T10:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed8",
+    "id": "NTF007",
+    "userId": "USR001",
+    "title": "Certificate Correction",
+    "message": "Certificate of Origin requires correction. Please review.",
+    "type": "error",
+    "read": false,
+    "createdAt": "2026-01-22T15:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ed9",
+    "id": "NTF008",
+    "userId": "USR002",
+    "title": "New Assistance Request",
+    "message": "Meera Handicrafts has requested DNK assistance",
+    "type": "info",
+    "read": false,
+    "createdAt": "2026-01-25T11:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1eda",
+    "id": "NTF009",
+    "userId": "USR002",
+    "title": "Document Pending Review",
+    "message": "Packing List for Order #DNK10234 needs review",
+    "type": "warning",
+    "read": false,
+    "createdAt": "2026-01-25T13:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1edb",
+    "id": "NTF010",
+    "userId": "USR002",
+    "title": "Shipment Delayed",
+    "message": "Shipment DNK-US-2026-00115 may require attention",
+    "type": "error",
+    "read": true,
+    "createdAt": "2026-01-22T08:30:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1edc",
+    "id": "NTF011",
+    "userId": "USR004",
+    "title": "Order Shipped",
+    "message": "Your order #DNK10234 has been shipped",
+    "type": "info",
+    "read": true,
+    "createdAt": "2026-01-22T09:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1edd",
+    "id": "NTF012",
+    "userId": "USR004",
+    "title": "Tracking Update",
+    "message": "Order #DNK10234 is now in international transit",
+    "type": "info",
+    "read": false,
+    "createdAt": "2026-01-25T12:30:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ede",
+    "id": "NTF013",
+    "userId": "USR003",
+    "title": "System Alert",
+    "message": "7 delayed shipments detected across platform",
+    "type": "warning",
+    "read": false,
+    "createdAt": "2026-01-25T08:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1edf",
+    "id": "NTF014",
+    "userId": "USR003",
+    "title": "New Seller Registration",
+    "message": "Mysore Sandalwood Crafts has applied for verification",
+    "type": "info",
+    "read": true,
+    "createdAt": "2026-01-24T10:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ee0",
+    "id": "NTF015",
+    "userId": "USR001",
+    "title": "Low Bandwidth Reminder",
+    "message": "You have 2 draft exports saved locally",
+    "type": "info",
+    "read": true,
+    "createdAt": "2026-01-24T16:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ee1",
+    "id": "NTF016",
+    "userId": "USR004",
+    "title": "Invoice Reminder",
+    "message": "Please upload invoice for Order #DNK10251",
+    "type": "warning",
+    "read": false,
+    "createdAt": "2026-01-27T10:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ee2",
+    "id": "NTF017",
+    "userId": "USR001",
+    "title": "Export Cost Estimate",
+    "message": "Updated shipping rates available for Germany",
+    "type": "info",
+    "read": true,
+    "createdAt": "2026-01-23T09:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ee3",
+    "id": "NTF018",
+    "userId": "USR002",
+    "title": "Shipment Ready",
+    "message": "Shipment DNK-FR-2026-00120 is ready for dispatch",
+    "type": "success",
+    "read": false,
+    "createdAt": "2026-01-20T10:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ee4",
+    "id": "NTF019",
+    "userId": "USR003",
+    "title": "Monthly Report",
+    "message": "January analytics report is ready for review",
+    "type": "info",
+    "read": true,
+    "createdAt": "2026-01-31T08:00:00Z"
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ee5",
+    "id": "NTF020",
+    "userId": "USR004",
+    "title": "Delivery Update",
+    "message": "Order #DNK10238 has been delivered successfully",
+    "type": "success",
+    "read": true,
+    "createdAt": "2026-01-08T15:00:00Z"
+  }
+]

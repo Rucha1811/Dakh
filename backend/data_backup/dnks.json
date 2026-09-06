@@ -1,0 +1,389 @@
+[
+  {
+    "_id": "6a87debcd025ce9d0bdd1e97",
+    "id": "DNK001",
+    "name": "Ahmedabad Head Post Office GPO DNK",
+    "state": "Gujarat",
+    "district": "Ahmedabad",
+    "address": "Bhadra, Near Lal Darwaja, Ahmedabad, Gujarat 380001",
+    "pinCode": "380001",
+    "services": [
+      "Export Assistance",
+      "Customs Packaging",
+      "PBE Documentation",
+      "International EMS Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 79 2657 1234",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 23.0258,
+    "lng": 72.5857
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e98",
+    "id": "DNK002",
+    "name": "Bhuj Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Bhuj",
+    "address": "Station Road, Near Jubilee Ground, Bhuj, Gujarat 370001",
+    "pinCode": "370001",
+    "services": [
+      "Handicraft Export Support",
+      "PBE-III Filing",
+      "Customs Packing",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 2832 234567",
+    "operatingHours": "9:00 AM – 5:30 PM",
+    "lat": 23.242,
+    "lng": 69.6669
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e99",
+    "id": "DNK003",
+    "name": "Surat Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Surat",
+    "address": "78, Ring Road, Athwagate, Surat, Gujarat 395001",
+    "pinCode": "395001",
+    "services": [
+      "Textile & Diamond Export",
+      "Packaging Assistance",
+      "Commercial Invoicing",
+      "EMS International"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 261 2345678",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 21.1702,
+    "lng": 72.8311
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e9a",
+    "id": "DNK011",
+    "name": "Navrangpura Post Office DNK",
+    "state": "Gujarat",
+    "district": "Ahmedabad",
+    "address": "Near CG Road, Navrangpura, Ahmedabad, Gujarat 380009",
+    "pinCode": "380009",
+    "services": [
+      "MSME Export Counter",
+      "Shipment Booking",
+      "Documentation Support"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 79 2630 1234",
+    "operatingHours": "9:00 AM – 5:00 PM",
+    "lat": 23.0365,
+    "lng": 72.5611
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e9b",
+    "id": "DNK012",
+    "name": "Gandhinagar Sector 16 Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Gandhinagar",
+    "address": "Sector 16, Shopping Complex, Gandhinagar, Gujarat 382016",
+    "pinCode": "382016",
+    "services": [
+      "Export Assistance",
+      "Packaging Service",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 79 2320 1234",
+    "operatingHours": "9:30 AM – 5:30 PM",
+    "lat": 23.2156,
+    "lng": 72.6369
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e9c",
+    "id": "DNK013",
+    "name": "Vadodara Raopura Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Vadodara",
+    "address": "Raopura Road, Mandvi, Vadodara, Gujarat 390001",
+    "pinCode": "390001",
+    "services": [
+      "Artisan Assistance",
+      "Packaging & Seal",
+      "Postal Bill of Export",
+      "Express Dispatch"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 265 2412345",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 22.3072,
+    "lng": 73.1812
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e9d",
+    "id": "DNK014",
+    "name": "Rajkot Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Rajkot",
+    "address": "MG Road, Sadar Bazar, Rajkot, Gujarat 360001",
+    "pinCode": "360001",
+    "services": [
+      "Silverware & Handicraft Export",
+      "Packaging Labelling",
+      "DNK Express"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 281 2223344",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 22.3039,
+    "lng": 70.8022
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e9e",
+    "id": "DNK015",
+    "name": "Jamnagar Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Jamnagar",
+    "address": "Chandi Bazaar, Jamnagar, Gujarat 361001",
+    "pinCode": "361001",
+    "services": [
+      "Brass Part & Bandhani Export",
+      "Documentation",
+      "Postal Clearance"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 288 2551234",
+    "operatingHours": "9:30 AM – 5:30 PM",
+    "lat": 22.4707,
+    "lng": 70.0577
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1e9f",
+    "id": "DNK016",
+    "name": "Bhavnagar Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Bhavnagar",
+    "address": "High Court Road, Bhavnagar, Gujarat 364001",
+    "pinCode": "364001",
+    "services": [
+      "Export Shipment",
+      "Packing Box Provision",
+      "Customs Bill Support"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 278 2421234",
+    "operatingHours": "9:00 AM – 5:00 PM",
+    "lat": 21.7645,
+    "lng": 72.1519
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea0",
+    "id": "DNK017",
+    "name": "Anand Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Anand",
+    "address": "Amul Dairy Road, Anand, Gujarat 388001",
+    "pinCode": "388001",
+    "services": [
+      "Agro & Dairy Craft Export",
+      "Packaging Support",
+      "Shipment Dispatch"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 2692 245678",
+    "operatingHours": "9:00 AM – 5:30 PM",
+    "lat": 22.5645,
+    "lng": 72.9289
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea1",
+    "id": "DNK018",
+    "name": "Junagadh Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Junagadh",
+    "address": "Azad Chowk, Junagadh, Gujarat 362001",
+    "pinCode": "362001",
+    "services": [
+      "Artisan Guidance",
+      "Packaging",
+      "Postal Export Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 285 2623456",
+    "operatingHours": "9:30 AM – 5:00 PM",
+    "lat": 21.5222,
+    "lng": 70.4579
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea2",
+    "id": "DNK019",
+    "name": "Mehsana Head Post Office DNK",
+    "state": "Gujarat",
+    "district": "Mehsana",
+    "address": "Radhanpur Road, Mehsana, Gujarat 384002",
+    "pinCode": "384002",
+    "services": [
+      "Handloom Export Counter",
+      "Customs Verification",
+      "Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 2762 251234",
+    "operatingHours": "9:00 AM – 5:00 PM",
+    "lat": 23.588,
+    "lng": 72.3693
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea3",
+    "id": "DNK020",
+    "name": "Bharuch Station Road DNK",
+    "state": "Gujarat",
+    "district": "Bharuch",
+    "address": "Station Road, Bharuch, Gujarat 392001",
+    "pinCode": "392001",
+    "services": [
+      "Industrial & Craft Export",
+      "Packaging Assistance",
+      "PBE-IV"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 2642 261234",
+    "operatingHours": "9:30 AM – 5:30 PM",
+    "lat": 21.7051,
+    "lng": 72.9959
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea4",
+    "id": "DNK004",
+    "name": "Jaipur Head Post Office DNK",
+    "state": "Rajasthan",
+    "district": "Jaipur",
+    "address": "23, Nehru Bazaar, Jaipur, Rajasthan 302001",
+    "pinCode": "302001",
+    "services": [
+      "Export Assistance",
+      "Packaging",
+      "Documentation Support",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 141 2345678",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 26.9124,
+    "lng": 75.7873
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea5",
+    "id": "DNK005",
+    "name": "Kolkata GPO DNK",
+    "state": "West Bengal",
+    "district": "Kolkata",
+    "address": "19, Netaji Subhash Road, Kolkata, West Bengal 700001",
+    "pinCode": "700001",
+    "services": [
+      "Export Assistance",
+      "Documentation Support",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 33 22345678",
+    "operatingHours": "10:00 AM – 5:00 PM",
+    "lat": 22.5726,
+    "lng": 88.3639
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea6",
+    "id": "DNK006",
+    "name": "Kochi Head Post Office DNK",
+    "state": "Kerala",
+    "district": "Kochi",
+    "address": "90, Mattancherry, Kochi, Kerala 682002",
+    "pinCode": "682002",
+    "services": [
+      "Export Assistance",
+      "Packaging",
+      "Documentation Support",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 484 2345678",
+    "operatingHours": "9:00 AM – 5:00 PM",
+    "lat": 9.9312,
+    "lng": 76.2673
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea7",
+    "id": "DNK007",
+    "name": "Varanasi Head Post Office DNK",
+    "state": "Uttar Pradesh",
+    "district": "Varanasi",
+    "address": "12, Godowlia, Varanasi, Uttar Pradesh 221001",
+    "pinCode": "221001",
+    "services": [
+      "Export Assistance",
+      "Documentation Support",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 542 2345678",
+    "operatingHours": "9:00 AM – 5:00 PM",
+    "lat": 25.3176,
+    "lng": 82.9739
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea8",
+    "id": "DNK008",
+    "name": "Chennai Head Post Office DNK",
+    "state": "Tamil Nadu",
+    "district": "Chennai",
+    "address": "34, T Nagar, Chennai, Tamil Nadu 600017",
+    "pinCode": "600017",
+    "services": [
+      "Export Assistance",
+      "Packaging",
+      "Documentation Support",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 44 23456789",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 13.0827,
+    "lng": 80.2707
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1ea9",
+    "id": "DNK009",
+    "name": "Mysore Head Post Office DNK",
+    "state": "Karnataka",
+    "district": "Mysore",
+    "address": "67, Devaraja Mohalla, Mysore, Karnataka 570001",
+    "pinCode": "570001",
+    "services": [
+      "Export Assistance",
+      "Shipment Booking"
+    ],
+    "status": "Closed",
+    "contactPhone": "+91 821 2345678",
+    "operatingHours": "10:00 AM – 5:00 PM",
+    "lat": 12.2958,
+    "lng": 76.6394
+  },
+  {
+    "_id": "6a87debcd025ce9d0bdd1eaa",
+    "id": "DNK010",
+    "name": "Mumbai GPO DNK",
+    "state": "Maharashtra",
+    "district": "Mumbai",
+    "address": "89, Fort Area, Mumbai, Maharashtra 400001",
+    "pinCode": "400001",
+    "services": [
+      "Export Assistance",
+      "Packaging",
+      "Documentation Support",
+      "Shipment Booking"
+    ],
+    "status": "Open",
+    "contactPhone": "+91 22 23456789",
+    "operatingHours": "9:00 AM – 6:00 PM",
+    "lat": 18.9388,
+    "lng": 72.8354
+  }
+]

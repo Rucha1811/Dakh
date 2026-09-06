@@ -1,0 +1,110 @@
+[
+  {
+    "_id": "6a87debbd025ce9d0bdd1e8b",
+    "id": "CR001",
+    "productCategory": "Handicrafts",
+    "destination": "Germany",
+    "requirement": "Product description and country of origin declaration",
+    "document": "Commercial Invoice",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e8c",
+    "id": "CR002",
+    "productCategory": "Handicrafts",
+    "destination": "Germany",
+    "requirement": "Wood treatment certificate for natural materials",
+    "document": "Phytosanitary Certificate",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e8d",
+    "id": "CR003",
+    "productCategory": "Textiles",
+    "destination": "USA",
+    "requirement": "Fabric composition label and care instructions",
+    "document": "Product Label Certificate",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e8e",
+    "id": "CR004",
+    "productCategory": "Textiles",
+    "destination": "UK",
+    "requirement": "Textile fiber identification",
+    "document": "Textile Composition Certificate",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e8f",
+    "id": "CR005",
+    "productCategory": "Food Products",
+    "destination": "Germany",
+    "requirement": "FSSAI certification and food safety compliance",
+    "document": "FSSAI License",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e90",
+    "id": "CR006",
+    "productCategory": "Food Products",
+    "destination": "USA",
+    "requirement": "FDA registration for food imports",
+    "document": "FDA Registration",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e91",
+    "id": "CR007",
+    "productCategory": "Jewellery",
+    "destination": "UAE",
+    "requirement": "Precious metal hallmarking certificate",
+    "document": "Hallmark Certificate",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e92",
+    "id": "CR008",
+    "productCategory": "Home Decor",
+    "destination": "France",
+    "requirement": "CE marking for decorative items",
+    "document": "CE Compliance Certificate",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e93",
+    "id": "CR009",
+    "productCategory": "Eco-Friendly Products",
+    "destination": "Australia",
+    "requirement": "Environmental compliance declaration",
+    "document": "Eco Compliance Certificate",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e94",
+    "id": "CR010",
+    "productCategory": "Handicrafts",
+    "destination": "Japan",
+    "requirement": "Japanese import declaration form",
+    "document": "Japan Import Declaration",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e95",
+    "id": "CR011",
+    "productCategory": "Art",
+    "destination": "USA",
+    "requirement": "Cultural artifact export clearance",
+    "document": "Antiquity Export License",
+    "status": "Active"
+  },
+  {
+    "_id": "6a87debbd025ce9d0bdd1e96",
+    "id": "CR012",
+    "productCategory": "Traditional Products",
+    "destination": "Germany",
+    "requirement": "Cosmetic product safety report",
+    "document": "CPSR Certificate",
+    "status": "Active"
+  }
+]

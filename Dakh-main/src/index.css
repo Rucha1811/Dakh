@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+@variant dark (&:where(.dark, .dark *));
+
+/* Leaflet Map overrides */
+.leaflet-container {
+  font-family: inherit !important;
+  z-index: 1 !important;
+}
+.leaflet-pane {
+  z-index: 2 !important;
+}
+.leaflet-top, .leaflet-bottom {
+  z-index: 10 !important;
+}
+.custom-dnk-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+@theme {
+  --color-primary: #102A43;
+  --color-brand-red: #C62828;
+  --color-off-white: #F8F5EF;
+  --color-soft-gray: #EEF2F5;
+  --color-accent-amber: #E8A317;
+  --color-success: #2E7D32;
+  --color-warning: #C77C02;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--color-off-white)] text-gray-900 antialiased min-h-screen font-sans transition-colors duration-200;
+  }
+}
+
+.dark {
+  --color-off-white: #0B1120;
+  --color-soft-gray: #0F172A;
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #0B1120 !important;
+  color: #F8FAFC !important;
+}
+
+/* Sidebar styling for light and dark modes */
+.app-sidebar {
+  background-color: #0B1426 !important;
+  color: #F8FAFC !important;
+  border-color: #1E293B !important;
+}
+.dark .app-sidebar {
+  background-color: #060B14 !important;
+  color: #F8FAFC !important;
+  border-color: #1E293B !important;
+}
+.app-sidebar .text-gray-300,
+.app-sidebar .text-gray-400 {
+  color: #94A3B8 !important;
+}
+.app-sidebar .text-white {
+  color: #FFFFFF !important;
+}
+
+/* Card & Surface Overrides for Dark Mode */
+.dark .bg-white {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-50\/50,
+.dark .bg-gray-50\/60 {
+  background-color: #151F30 !important;
+}
+
+.dark .bg-gray-100 {
+  background-color: #243247 !important;
+}
+
+.dark .bg-gray-200 {
+  background-color: #334155 !important;
+}
+
+.dark .text-gray-900,
+.dark .text-gray-800 {
+  color: #F8FAFC !important;
+}
+
+.dark .text-gray-700,
+.dark .text-gray-600 {
+  color: #CBD5E1 !important;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-400 {
+  color: #94A3B8 !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: #334155 !important;
+}
+
+.dark .hover\:bg-gray-50:hover {
+  background-color: #243247 !important;
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: #334155 !important;
+}
+
+.dark .hover\:bg-gray-200:hover {
+  background-color: #475569 !important;
+}
+
+/* Input, Select, Textarea in Dark Mode */
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark select,
+.dark textarea {
+  background-color: #0F172A !important;
+  color: #F8FAFC !important;
+  border-color: #334155 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748B !important;
+}
+
+.dark .divide-y > :not([hidden]) ~ :not([hidden]) {
+  border-color: #334155 !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
